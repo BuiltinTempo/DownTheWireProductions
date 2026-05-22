@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Down The Wire Productions | Live Broadcast & Event Production</title>
+  <meta name="description" content="Down The Wire Productions provides scalable live broadcast, multi-camera streaming, event production, crew staffing, setup, teardown, and gear rental for sports, motorsports, festivals, and live events." />
+  <style>
+    :root {
+      --bg: #080a0f;
+      --panel: #111722;
+      --panel-2: #161f2d;
+      --text: #f4f7fb;
+      --muted: #a9b4c4;
+      --accent: #f04b23;
+      --accent-2: #ffb000;
+      --line: rgba(255,255,255,0.12);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top left, rgba(240,75,35,.22), transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8,10,15,.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .brand span:last-child {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .22em;
+      margin-top: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: .2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #111;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-secondary {
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.08);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 92px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,.04);
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .95;
+      margin: 0 0 24px;
+      letter-spacing: -0.05em;
+    }
+
+    .hero p {
+      max-width: 680px;
+      font-size: 19px;
+      color: var(--muted);
+      margin: 0 0 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .cred-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 720px;
+    }
+
+    .cred {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .cred strong { display: block; font-size: 24px; }
+    .cred span { color: var(--muted); font-size: 13px; }
+
+    .signal-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      min-height: 470px;
+      padding: 28px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.34);
+    }
+
+    .signal-lines {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, #000 20%, transparent 75%);
+      opacity: .55;
+    }
+
+    .signal-content { position: relative; z-index: 1; }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .live-dot::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 22px var(--accent);
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .feature-pill {
+      padding: 15px 16px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.26);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .feature-pill strong { color: #fff; }
+
+    section {
+      padding: 74px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      max-width: 780px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(31px, 4vw, 48px);
+      margin: 0 0 14px;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--panel), rgba(17,23,34,.62));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin-bottom: 0;
+    }
+
+    .industries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .process {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+    }
+
+    .step::before {
+      content: counter(step);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #111;
+    }
+
+    .step h3 { margin: 0 0 4px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .cta {
+      background: linear-gradient(135deg, rgba(240,75,35,.22), rgba(255,176,0,.14));
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+
+    .cta p { margin: 0; color: var(--muted); }
+
+    footer {
+      padding: 34px 0;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hero-grid, .split, .cta { grid-template-columns: 1fr; }
+      .grid-3, .cred-strip { grid-template-columns: 1fr; }
+      .signal-card { min-height: auto; }
+      .hero { padding-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Down The Wire Productions home">
+        <span>Down The Wire</span>
+        <span>Productions</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#industries">Industries</a>
+        <a href="#packages">Packages</a>
+        <a href="#contact" class="btn btn-primary">Book a Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Live broadcast • Event production • Crew • Gear • On-site support</span>
+          <h1>Professional live production built for real-world events.</h1>
+          <p>Down The Wire Productions provides scalable broadcast and event production services for sports, motorsports, festivals, concerts, branded events, and organizations that need reliable live coverage without building an in-house production team.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions">Start a Project</a>
+            <a class="btn btn-secondary" href="#services">View Services</a>
+          </div>
+          <div class="cred-strip" aria-label="Company credibility highlights">
+            <div class="cred"><strong>Live</strong><span>multi-camera workflows</span></div>
+            <div class="cred"><strong>Scalable</strong><span>from small streams to full shows</span></div>
+            <div class="cred"><strong>On-Site</strong><span>setup, crew, teardown, and support</span></div>
+          </div>
+        </div>
+
+        <aside class="signal-card" aria-label="Broadcast capability card">
+          <div class="signal-lines"></div>
+          <div class="signal-content">
+            <div class="status">
+              <span class="live-dot">Production Ready</span>
+              <span>DTW-001</span>
+            </div>
+            <h2>From cameras to crew, we help events look bigger, run cleaner, and create more value for sponsors.</h2>
+            <div class="feature-list">
+              <div class="feature-pill"><strong>Broadcast:</strong> live switching, graphics, replay, commentary, sponsor integration</div>
+              <div class="feature-pill"><strong>Operations:</strong> crew staffing, setup, teardown, technical direction, field deployment</div>
+              <div class="feature-pill"><strong>Infrastructure:</strong> camera systems, audio, comms, fiber/network planning, streaming support</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Broadcast services that fit the event — not the other way around.</h2>
+          <p>Whether you need a full live stream, extra operators, production consulting, rental support, or a complete on-site crew, we scale the package around the show.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Live Broadcast</h3>
+            <p>Multi-camera production for events that need polished live coverage and a clean viewer experience.</p>
+            <ul>
+              <li>Live streaming</li>
+              <li>Camera switching</li>
+              <li>Replay workflows</li>
+              <li>Broadcast graphics</li>
+              <li>Commentary integration</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Event Production Support</h3>
+            <p>Technical and operational support for crews, venues, promoters, and production teams that need reliable hands on site.</p>
+            <ul>
+              <li>Setup and teardown</li>
+              <li>Production staffing</li>
+              <li>Camera operators</li>
+              <li>Audio and comms support</li>
+              <li>Technical direction</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Gear & Consulting</h3>
+            <p>Support for events that already have part of the puzzle but need help filling the gaps or building the right workflow.</p>
+            <ul>
+              <li>Gear rental options</li>
+              <li>Workflow planning</li>
+              <li>Streaming setup</li>
+              <li>Fiber/network planning</li>
+              <li>Production system design</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="industries">
+      <div class="wrap split">
+        <div class="section-head">
+          <h2>Built for events with movement, pressure, and no second takes.</h2>
+          <p>We specialize in live environments where reliability matters and the production has to work the first time.</p>
+        </div>
+        <div class="industries">
+          <span class="tag">Motorsports</span>
+          <span class="tag">Drift Events</span>
+          <span class="tag">Action Sports</span>
+          <span class="tag">Mountain Bike Racing</span>
+          <span class="tag">Local Sports</span>
+          <span class="tag">Festivals</span>
+          <span class="tag">Concerts</span>
+          <span class="tag">Rodeos</span>
+          <span class="tag">Brand Activations</span>
+          <span class="tag">Trade Shows</span>
+          <span class="tag">Venue Events</span>
+          <span class="tag">Sponsor-Driven Coverage</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Simple starting points.</h2>
+          <p>Every event is different, but these packages make it easy to start the conversation.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Starter Stream</h3>
+            <p>For events that need a clean, professional live presence without overbuilding the show.</p>
+            <ul>
+              <li>Small multi-camera setup</li>
+              <li>Basic graphics</li>
+              <li>Stream setup and monitoring</li>
+              <li>Optional commentary support</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Broadcast Package</h3>
+            <p>For events that need stronger production value, sponsor visibility, replay, and dedicated crew roles.</p>
+            <ul>
+              <li>Expanded camera coverage</li>
+              <li>Replay workflow</li>
+              <li>Lower thirds and sponsor graphics</li>
+              <li>Production crew support</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Full Production</h3>
+            <p>For larger events that need a custom broadcast plan from site layout through final stream delivery.</p>
+            <ul>
+              <li>Full technical planning</li>
+              <li>Multi-position deployment</li>
+              <li>Comms/audio/network support</li>
+              <li>Custom crew and gear package</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="section-head">
+          <h2>Why events bring us in.</h2>
+          <p>A good live production does more than put cameras online. It creates sponsor inventory, expands reach, generates content, and makes the event feel more valuable.</p>
+        </div>
+        <div class="process">
+          <div class="step">
+            <div>
+              <h3>Increase sponsor value</h3>
+              <p>Add on-screen sponsor placements, branded segments, replay wipes, lower thirds, and professional visibility.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Extend the audience</h3>
+              <p>Reach viewers who cannot attend in person and create a stronger digital footprint for future events.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Reduce technical stress</h3>
+              <p>Bring in a team that understands live workflows, field setup, troubleshooting, and the pace of real events.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Create reusable content</h3>
+              <p>Turn the live show into highlight clips, sponsor recaps, promo material, and proof-of-value for partners.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta">
+          <div>
+            <h2>Let’s build the right production plan for your event.</h2>
+            <p>Tell us what you are hosting, what you already have, and what kind of coverage you want. We can help with the full production or fill in the missing pieces.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to talk about production support for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Let’s Chat</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <span>© <span id="year"></span> Down The Wire Productions. Live broadcast & event production.</span>
+      <span><a href="mailto:josh.cssr@gmail.com">josh.cssr@gmail.com</a></span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
