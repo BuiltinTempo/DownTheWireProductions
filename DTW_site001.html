@@ -3,18 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Down The Wire Productions | Live Broadcast & Event Production</title>
-  <meta name="description" content="Down The Wire Productions provides scalable live broadcast, multi-camera streaming, event production, crew staffing, setup, teardown, and gear rental for sports, motorsports, festivals, and live events." />
+  <title>Down The Wire Productions | Turnkey Live Broadcast</title>
+  <meta name="description" content="Down The Wire Productions delivers turnkey live broadcast, multi-camera streaming, event production, crew, graphics, replay, comms, and field infrastructure for mountain, motorsport, and outdoor events." />
+  <meta name="theme-color" content="#080a0f" />
+  <meta property="og:title" content="Down The Wire Productions | Turnkey Live Broadcast" />
+  <meta property="og:description" content="From camera to finish line, we deliver live broadcast and event production built for real-world conditions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/hero-interview.webp" />
+  <link rel="icon" href="assets/favicon.png" />
+
   <style>
     :root {
       --bg: #080a0f;
+      --bg-soft: #0c1119;
       --panel: #111722;
       --panel-2: #161f2d;
       --text: #f4f7fb;
       --muted: #a9b4c4;
-      --accent: #f04b23;
-      --accent-2: #ffb000;
-      --line: rgba(255,255,255,0.12);
+      --accent: #ef4d2d;
+      --accent-2: #ffb21c;
+      --pink: #ef276f;
+      --line: rgba(255,255,255,.12);
+      --line-strong: rgba(255,255,255,.2);
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --radius: 26px;
       --max: 1180px;
     }
 
@@ -22,132 +34,160 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: radial-gradient(circle at top left, rgba(240,75,35,.22), transparent 35%), var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(239,77,45,.18), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(239,39,111,.10), transparent 28%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
+    img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    ::selection { background: rgba(239,77,45,.4); color: white; }
 
     .wrap {
       width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
+      margin-inline: auto;
     }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -70px;
+      z-index: 100;
+      background: white;
+      color: #111;
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 14px; }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: rgba(8,10,15,.86);
-      backdrop-filter: blur(14px);
+      z-index: 50;
+      background: rgba(8,10,15,.82);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
 
     .nav {
-      height: 74px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-    }
-
-    .brand span:last-child {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: .22em;
-      margin-top: 5px;
+    .brand img {
+      width: 190px;
+      height: auto;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
-      font-size: 14px;
+      gap: 24px;
       color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
     }
+
+    .nav-links > a:not(.btn) { transition: color .2s ease; }
+    .nav-links > a:not(.btn):hover { color: white; }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-height: 48px;
+      padding: 12px 20px;
       border-radius: 999px;
-      padding: 13px 20px;
-      font-weight: 700;
       border: 1px solid transparent;
-      transition: .2s ease;
-      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
     }
 
+    .btn:hover { transform: translateY(-2px); }
     .btn-primary {
+      color: #120d09;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #111;
+      box-shadow: 0 12px 32px rgba(239,77,45,.22);
     }
-
-    .btn-primary:hover { transform: translateY(-2px); }
-
     .btn-secondary {
+      background: rgba(255,255,255,.045);
       border-color: var(--line);
-      color: var(--text);
-      background: rgba(255,255,255,.04);
     }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,.08);
-      transform: translateY(-2px);
-    }
+    .btn-secondary:hover { background: rgba(255,255,255,.09); }
 
     .hero {
-      padding: 92px 0 70px;
+      min-height: 760px;
+      display: grid;
+      align-items: center;
+      padding: 76px 0 70px;
+      border-top: 0;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.18fr .82fr;
-      gap: 42px;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 54px;
       align-items: center;
     }
 
     .eyebrow {
       display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      padding: 8px 13px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 7px 12px;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 20px;
+      color: #dce4ef;
       background: rgba(255,255,255,.04);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 18px var(--accent);
     }
 
+    h1, h2, h3 { text-wrap: balance; }
     h1 {
-      font-size: clamp(42px, 7vw, 78px);
-      line-height: .95;
+      max-width: 760px;
       margin: 0 0 24px;
-      letter-spacing: -0.05em;
+      font-size: clamp(48px, 7.4vw, 88px);
+      line-height: .92;
+      letter-spacing: -.065em;
+    }
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(115deg, #fff 5%, #fff 40%, #ffb21c 70%, #ef4d2d 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
     }
 
-    .hero p {
-      max-width: 680px;
-      font-size: 19px;
-      color: var(--muted);
+    .hero-copy {
+      max-width: 670px;
       margin: 0 0 30px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 34px;
-    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-bottom: 34px; }
 
     .cred-strip {
       display: grid;
@@ -155,425 +195,504 @@
       gap: 12px;
       max-width: 720px;
     }
-
     .cred {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
+      min-height: 92px;
       padding: 16px;
-    }
-
-    .cred strong { display: block; font-size: 24px; }
-    .cred span { color: var(--muted); font-size: 13px; }
-
-    .signal-card {
-      position: relative;
       border: 1px solid var(--line);
-      border-radius: 30px;
-      overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
-      min-height: 470px;
-      padding: 28px;
-      box-shadow: 0 24px 80px rgba(0,0,0,.34);
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
     }
+    .cred strong { display: block; font-size: 20px; line-height: 1.15; }
+    .cred span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
 
-    .signal-lines {
+    .hero-media {
+      position: relative;
+      min-height: 590px;
+    }
+    .hero-photo {
+      position: absolute;
+      inset: 0 0 42px 42px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      background: var(--panel);
+    }
+    .hero-photo::after {
+      content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: radial-gradient(circle at center, #000 20%, transparent 75%);
-      opacity: .55;
+        linear-gradient(180deg, transparent 48%, rgba(8,10,15,.86) 100%),
+        linear-gradient(90deg, rgba(8,10,15,.14), transparent 55%);
+      pointer-events: none;
     }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 52% center; }
 
-    .signal-content { position: relative; z-index: 1; }
-
-    .status {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 18px;
-      margin-bottom: 24px;
-      color: var(--muted);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
+    .live-card {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      width: min(420px, 88%);
+      padding: 22px;
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      background: rgba(11,15,22,.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.34);
     }
-
-    .live-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
-      font-weight: 800;
-    }
-
-    .live-dot::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 22px var(--accent);
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .feature-pill {
-      padding: 15px 16px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.26);
-      border: 1px solid var(--line);
-      color: var(--muted);
-    }
-
-    .feature-pill strong { color: #fff; }
+    .live-card-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .live-status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .live-status::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px var(--accent); }
+    .live-card small { color: var(--muted); }
+    .live-card h2 { margin: 0; font-size: 24px; line-height: 1.08; }
 
     section {
-      padding: 74px 0;
+      padding: 88px 0;
       border-top: 1px solid var(--line);
     }
 
-    .section-head {
-      max-width: 780px;
-      margin-bottom: 34px;
+    .section-kicker {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
-
+    .section-head { max-width: 800px; margin-bottom: 36px; }
     .section-head h2 {
-      font-size: clamp(31px, 4vw, 48px);
-      margin: 0 0 14px;
-      line-height: 1.05;
-      letter-spacing: -0.035em;
+      margin: 0 0 15px;
+      font-size: clamp(34px, 4.7vw, 58px);
+      line-height: 1;
+      letter-spacing: -.048em;
     }
+    .section-head p { margin: 0; color: var(--muted); font-size: 18px; }
 
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    .grid-3 {
+    .field-section { background: linear-gradient(180deg, rgba(255,255,255,.018), transparent); }
+    .field-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.2fr .8fr;
       gap: 18px;
+      align-items: stretch;
     }
+    .photo-card {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 16px 50px rgba(0,0,0,.22);
+    }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .photo-card:hover img { transform: scale(1.025); }
+    .photo-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 52%, rgba(5,7,11,.9)); pointer-events: none; }
+    .photo-caption { position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 22px; }
+    .photo-caption strong { display: block; font-size: 22px; line-height: 1.05; }
+    .photo-caption span { color: #c9d2df; font-size: 13px; }
+    .stack { display: grid; gap: 18px; grid-template-rows: 1fr 1fr; }
+    .stack .photo-card { min-height: 260px; }
 
+    .case-study {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 42px;
+      align-items: center;
+    }
+    .case-image {
+      overflow: hidden;
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+    }
+    .case-image img { width: 100%; height: 100%; min-height: 520px; object-fit: cover; object-position: 50% 50%; }
+    .case-copy h2 { margin: 0 0 18px; font-size: clamp(36px, 5vw, 60px); line-height: .98; letter-spacing: -.05em; }
+    .case-copy > p { color: var(--muted); font-size: 18px; }
+    .feature-list { display: grid; gap: 12px; margin-top: 28px; }
+    .feature {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 13px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
+    }
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: #111;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-weight: 900;
+    }
+    .feature h3 { margin: 0 0 2px; font-size: 17px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .card {
-      background: linear-gradient(180deg, var(--panel), rgba(17,23,34,.62));
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
       border: 1px solid var(--line);
       border-radius: 24px;
-      padding: 24px;
+      background: linear-gradient(180deg, rgba(22,31,45,.95), rgba(17,23,34,.68));
     }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,77,45,.22), transparent 70%);
     }
+    .card-num { display: block; margin-bottom: 22px; color: var(--accent-2); font-size: 12px; font-weight: 900; letter-spacing: .14em; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.1; }
+    .card p, .card li { color: var(--muted); }
+    .card ul { margin: 18px 0 0; padding-left: 18px; }
 
-    .card p, .card li {
-      color: var(--muted);
-    }
-
-    .card ul {
-      padding-left: 18px;
-      margin-bottom: 0;
-    }
-
-    .industries {
+    .industries-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 11px;
+      margin-top: 28px;
     }
-
     .tag {
       padding: 10px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,.045);
-      color: var(--muted);
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 30px;
-      align-items: start;
-    }
-
-    .process {
-      counter-reset: step;
-      display: grid;
-      gap: 14px;
-    }
-
-    .step {
-      counter-increment: step;
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
       background: rgba(255,255,255,.04);
+      color: #ccd5e1;
+      font-size: 14px;
+      font-weight: 650;
     }
 
-    .step::before {
-      content: counter(step);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr .78fr .78fr;
+      gap: 16px;
+    }
+    .gallery figure {
+      position: relative;
+      min-height: 470px;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+    }
+    .gallery figure:nth-child(2), .gallery figure:nth-child(3) { min-height: 470px; }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery figure:first-child img { object-position: center; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .step {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.035);
+    }
+    .step strong {
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      margin-bottom: 20px;
+      border-radius: 50%;
       color: #111;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
-
-    .step h3 { margin: 0 0 4px; }
-    .step p { margin: 0; color: var(--muted); }
+    .step h3 { margin: 0 0 7px; font-size: 20px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
 
     .cta {
-      background: linear-gradient(135deg, rgba(240,75,35,.22), rgba(255,176,0,.14));
-      border: 1px solid var(--line);
-      border-radius: 32px;
-      padding: 42px;
+      position: relative;
+      overflow: hidden;
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
+      padding: 46px;
+      border: 1px solid var(--line-strong);
+      border-radius: 32px;
+      background:
+        linear-gradient(120deg, rgba(239,77,45,.24), rgba(255,178,28,.1) 48%, rgba(17,23,34,.88)),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .cta::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -180px;
+      top: -180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,39,111,.2), transparent 68%);
+    }
+    .cta > * { position: relative; z-index: 1; }
+    .cta h2 { margin: 0 0 10px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1; letter-spacing: -.048em; }
+    .cta p { max-width: 770px; margin: 0; color: #c3cddd; }
+
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    .footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
+    .footer-brand { display: flex; align-items: center; gap: 18px; }
+    .footer-brand img { width: 130px; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links a:hover { color: white; }
+
+    @media (max-width: 1000px) {
+      .hero { min-height: auto; }
+      .hero-grid, .case-study { grid-template-columns: 1fr; }
+      .hero-media { min-height: 580px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .stack { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery figure:first-child { grid-column: 1 / -1; min-height: 430px; }
     }
 
-    .cta h2 {
-      margin: 0 0 10px;
-      font-size: clamp(30px, 4vw, 48px);
-      letter-spacing: -0.035em;
-      line-height: 1.05;
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      .nav { min-height: 68px; }
+      .brand img { width: 152px; }
+      .nav-links > a:not(.btn) { display: none; }
+      .nav-links .btn { min-height: 42px; padding: 10px 15px; font-size: 13px; }
+      .hero { padding-top: 48px; }
+      h1 { font-size: clamp(45px, 15vw, 68px); }
+      .cred-strip, .grid-3, .process-grid, .gallery, .stack { grid-template-columns: 1fr; }
+      .hero-media { min-height: 500px; }
+      .hero-photo { inset: 0 0 52px 18px; }
+      .live-card { padding: 18px; }
+      .field-grid .photo-card, .stack .photo-card { min-height: 330px; }
+      .case-image, .case-image img { min-height: 400px; }
+      .gallery figure, .gallery figure:nth-child(2), .gallery figure:nth-child(3) { min-height: 420px; }
+      .gallery figure:first-child { grid-column: auto; min-height: 360px; }
+      .cta { grid-template-columns: 1fr; padding: 30px; }
+      section { padding: 68px 0; }
+      .footer-brand { align-items: flex-start; flex-direction: column; gap: 8px; }
     }
 
-    .cta p { margin: 0; color: var(--muted); }
-
-    footer {
-      padding: 34px 0;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid var(--line);
-    }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .hero-grid, .split, .cta { grid-template-columns: 1fr; }
-      .grid-3, .cred-strip { grid-template-columns: 1fr; }
-      .signal-card { min-height: auto; }
-      .hero { padding-top: 56px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header>
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="Down The Wire Productions home">
-        <span>Down The Wire</span>
-        <span>Productions</span>
+        <img src="assets/down-the-wire-logo.png" alt="Down The Wire Productions" />
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#work">Recent Work</a>
         <a href="#services">Services</a>
-        <a href="#industries">Industries</a>
-        <a href="#packages">Packages</a>
-        <a href="#contact" class="btn btn-primary">Book a Call</a>
+        <a href="#process">Process</a>
+        <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions">Start a Project</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
+  <main id="main">
+    <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">Live broadcast • Event production • Crew • Gear • On-site support</span>
-          <h1>Professional live production built for real-world events.</h1>
-          <p>Down The Wire Productions provides scalable broadcast and event production services for sports, motorsports, festivals, concerts, branded events, and organizations that need reliable live coverage without building an in-house production team.</p>
+          <span class="eyebrow">Turnkey live broadcast for real-world events</span>
+          <h1>From camera to finish line. <span class="gradient-text">We deliver live.</span></h1>
+          <p class="hero-copy">Down The Wire Productions builds scalable live broadcasts for mountain, motorsport, outdoor, and sponsor-driven events—combining cameras, crew, graphics, replay, commentary, comms, and field infrastructure into one dependable production.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions">Start a Project</a>
-            <a class="btn btn-secondary" href="#services">View Services</a>
+            <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to discuss live production for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Plan Your Broadcast</a>
+            <a class="btn btn-secondary" href="#work">See Recent Work</a>
           </div>
-          <div class="cred-strip" aria-label="Company credibility highlights">
-            <div class="cred"><strong>Live</strong><span>multi-camera workflows</span></div>
-            <div class="cred"><strong>Scalable</strong><span>from small streams to full shows</span></div>
-            <div class="cred"><strong>On-Site</strong><span>setup, crew, teardown, and support</span></div>
+          <div class="cred-strip" aria-label="Production strengths">
+            <div class="cred"><strong>Turnkey</strong><span>Planning, gear, crew, and show delivery</span></div>
+            <div class="cred"><strong>Field Built</strong><span>Designed for mountain and outdoor conditions</span></div>
+            <div class="cred"><strong>Sponsor Ready</strong><span>Graphics, exposure, video walls, and content</span></div>
           </div>
         </div>
 
-        <aside class="signal-card" aria-label="Broadcast capability card">
-          <div class="signal-lines"></div>
-          <div class="signal-content">
-            <div class="status">
-              <span class="live-dot">Production Ready</span>
-              <span>DTW-001</span>
+        <div class="hero-media" aria-label="Recent mountain bike broadcast">
+          <div class="hero-photo">
+            <img src="assets/hero-interview.webp" alt="On-site host interviewing a downhill mountain bike athlete at a live event" fetchpriority="high" />
+          </div>
+          <div class="live-card">
+            <div class="live-card-top">
+              <span class="live-status">Production Ready</span>
+              <small>DTW / FIELD 01</small>
             </div>
-            <h2>From cameras to crew, we help events look bigger, run cleaner, and create more value for sponsors.</h2>
-            <div class="feature-list">
-              <div class="feature-pill"><strong>Broadcast:</strong> live switching, graphics, replay, commentary, sponsor integration</div>
-              <div class="feature-pill"><strong>Operations:</strong> crew staffing, setup, teardown, technical direction, field deployment</div>
-              <div class="feature-pill"><strong>Infrastructure:</strong> camera systems, audio, comms, fiber/network planning, streaming support</div>
+            <h2>Professional broadcast. Production. Solutions.</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="field-section" id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-kicker">Recent work</span>
+          <h2>Broadcast built into the event—not bolted on afterward.</h2>
+          <p>At the latest Mountain States Cup stop, the production connected live course coverage, commentary, graphics, sponsor visibility, and an on-site viewing experience for the crowd.</p>
+        </div>
+
+        <div class="field-grid">
+          <article class="photo-card">
+            <img src="assets/event-video-wall.webp" alt="Spectators watching live downhill mountain bike coverage on a large outdoor video wall" loading="lazy" />
+            <div class="photo-caption">
+              <strong>Live coverage for the venue</strong>
+              <span>On-site video wall and sponsor-facing broadcast presentation</span>
+            </div>
+          </article>
+          <div class="stack">
+            <article class="photo-card">
+              <img src="assets/camera-operator.webp" alt="Camera operator filming a mountain bike racer on course" loading="lazy" />
+              <div class="photo-caption">
+                <strong>Course-side camera deployment</strong>
+                <span>Operators positioned where the action happens</span>
+              </div>
+            </article>
+            <article class="photo-card">
+              <img src="assets/start-gate.webp" alt="Downhill mountain bike racer leaving the start ramp" loading="lazy" />
+              <div class="photo-caption">
+                <strong>From start gate to finish</strong>
+                <span>Coverage designed around the race—not a studio</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap case-study">
+        <div class="case-image">
+          <img src="assets/venue.webp" alt="Mountain States Cup downhill event venue prepared for broadcast and racing" loading="lazy" />
+        </div>
+        <div class="case-copy">
+          <span class="section-kicker">Mountain States Cup</span>
+          <h2>A complete downhill broadcast in a demanding environment.</h2>
+          <p>Mountain events require more than cameras. They require site planning, signal paths, reliable communications, crew coordination, and a production workflow that can move at race pace.</p>
+          <div class="feature-list">
+            <div class="feature">
+              <div class="feature-icon">01</div>
+              <div><h3>Live switching and commentary</h3><p>A cohesive show built from multiple camera positions, host coverage, graphics, and race storytelling.</p></div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">02</div>
+              <div><h3>Field infrastructure</h3><p>Fiber, networking, audio, comms, and deployment planning tailored to the mountain.</p></div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">03</div>
+              <div><h3>Sponsor integration</h3><p>On-screen graphics, venue visibility, branded segments, and reusable content that expands partner value.</p></div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">04</div>
+              <div><h3>On-site audience experience</h3><p>Live video delivery to the venue gives spectators a fuller view of the race beyond a single section of course.</p></div>
             </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
 
     <section id="services">
       <div class="wrap">
         <div class="section-head">
-          <h2>Broadcast services that fit the event — not the other way around.</h2>
-          <p>Whether you need a full live stream, extra operators, production consulting, rental support, or a complete on-site crew, we scale the package around the show.</p>
+          <span class="section-kicker">Capabilities</span>
+          <h2>One production partner from planning through final delivery.</h2>
+          <p>Bring us in for a complete show or to solve the missing pieces inside an existing production.</p>
         </div>
+
         <div class="grid-3">
           <article class="card">
-            <h3>Live Broadcast</h3>
-            <p>Multi-camera production for events that need polished live coverage and a clean viewer experience.</p>
+            <span class="card-num">01 / BROADCAST</span>
+            <h3>Live Broadcast Production</h3>
+            <p>Polished multi-camera coverage built for live audiences, venue screens, and digital platforms.</p>
             <ul>
-              <li>Live streaming</li>
-              <li>Camera switching</li>
-              <li>Replay workflows</li>
-              <li>Broadcast graphics</li>
-              <li>Commentary integration</li>
+              <li>Live switching and streaming</li>
+              <li>Replay and highlight workflows</li>
+              <li>Broadcast graphics and lower thirds</li>
+              <li>Commentary and host integration</li>
+              <li>Sponsor inventory and branded segments</li>
             </ul>
           </article>
-          <article class="card">
-            <h3>Event Production Support</h3>
-            <p>Technical and operational support for crews, venues, promoters, and production teams that need reliable hands on site.</p>
-            <ul>
-              <li>Setup and teardown</li>
-              <li>Production staffing</li>
-              <li>Camera operators</li>
-              <li>Audio and comms support</li>
-              <li>Technical direction</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Gear & Consulting</h3>
-            <p>Support for events that already have part of the puzzle but need help filling the gaps or building the right workflow.</p>
-            <ul>
-              <li>Gear rental options</li>
-              <li>Workflow planning</li>
-              <li>Streaming setup</li>
-              <li>Fiber/network planning</li>
-              <li>Production system design</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section id="industries">
-      <div class="wrap split">
-        <div class="section-head">
-          <h2>Built for events with movement, pressure, and no second takes.</h2>
-          <p>We specialize in live environments where reliability matters and the production has to work the first time.</p>
+          <article class="card">
+            <span class="card-num">02 / OPERATIONS</span>
+            <h3>Event Production & Crew</h3>
+            <p>Experienced people and practical on-site support for events where timing, communication, and reliability matter.</p>
+            <ul>
+              <li>Technical direction</li>
+              <li>Camera operators and utilities</li>
+              <li>Audio and communications support</li>
+              <li>Setup, show operation, and teardown</li>
+              <li>Production staffing and coordination</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="card-num">03 / INFRASTRUCTURE</span>
+            <h3>Systems, Gear & Consulting</h3>
+            <p>Production design for venues and promoters that need the right signal flow before show day.</p>
+            <ul>
+              <li>Camera and switcher systems</li>
+              <li>Fiber and network planning</li>
+              <li>Streaming and encoding workflows</li>
+              <li>Comms, audio, and monitoring</li>
+              <li>Custom gear packages</li>
+            </ul>
+          </article>
         </div>
-        <div class="industries">
+
+        <div class="industries-row" aria-label="Industries served">
+          <span class="tag">Downhill MTB</span>
+          <span class="tag">Action Sports</span>
           <span class="tag">Motorsports</span>
           <span class="tag">Drift Events</span>
-          <span class="tag">Action Sports</span>
-          <span class="tag">Mountain Bike Racing</span>
-          <span class="tag">Local Sports</span>
+          <span class="tag">Outdoor Events</span>
           <span class="tag">Festivals</span>
-          <span class="tag">Concerts</span>
-          <span class="tag">Rodeos</span>
           <span class="tag">Brand Activations</span>
-          <span class="tag">Trade Shows</span>
-          <span class="tag">Venue Events</span>
           <span class="tag">Sponsor-Driven Coverage</span>
         </div>
       </div>
     </section>
 
-    <section id="packages">
+    <section>
       <div class="wrap">
         <div class="section-head">
-          <h2>Simple starting points.</h2>
-          <p>Every event is different, but these packages make it easy to start the conversation.</p>
+          <span class="section-kicker">Inside the production</span>
+          <h2>Real people. Real terrain. No second takes.</h2>
         </div>
-        <div class="grid-3">
-          <article class="card">
-            <h3>Starter Stream</h3>
-            <p>For events that need a clean, professional live presence without overbuilding the show.</p>
-            <ul>
-              <li>Small multi-camera setup</li>
-              <li>Basic graphics</li>
-              <li>Stream setup and monitoring</li>
-              <li>Optional commentary support</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Broadcast Package</h3>
-            <p>For events that need stronger production value, sponsor visibility, replay, and dedicated crew roles.</p>
-            <ul>
-              <li>Expanded camera coverage</li>
-              <li>Replay workflow</li>
-              <li>Lower thirds and sponsor graphics</li>
-              <li>Production crew support</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Full Production</h3>
-            <p>For larger events that need a custom broadcast plan from site layout through final stream delivery.</p>
-            <ul>
-              <li>Full technical planning</li>
-              <li>Multi-position deployment</li>
-              <li>Comms/audio/network support</li>
-              <li>Custom crew and gear package</li>
-            </ul>
-          </article>
+        <div class="gallery">
+          <figure><img src="assets/riders.webp" alt="Downhill mountain bike athletes gathering before competition" loading="lazy" /></figure>
+          <figure><img src="assets/start-gate.webp" alt="Mountain bike racer launching from the starting platform" loading="lazy" /></figure>
+          <figure><img src="assets/camera-operator.webp" alt="Broadcast camera operator tracking a mountain bike racer" loading="lazy" /></figure>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="wrap split">
+    <section id="process">
+      <div class="wrap">
         <div class="section-head">
-          <h2>Why events bring us in.</h2>
-          <p>A good live production does more than put cameras online. It creates sponsor inventory, expands reach, generates content, and makes the event feel more valuable.</p>
+          <span class="section-kicker">How we work</span>
+          <h2>A practical process for complicated live events.</h2>
+          <p>Every plan is built around the site, the audience, the production goals, and the resources already available.</p>
         </div>
-        <div class="process">
-          <div class="step">
-            <div>
-              <h3>Increase sponsor value</h3>
-              <p>Add on-screen sponsor placements, branded segments, replay wipes, lower thirds, and professional visibility.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div>
-              <h3>Extend the audience</h3>
-              <p>Reach viewers who cannot attend in person and create a stronger digital footprint for future events.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div>
-              <h3>Reduce technical stress</h3>
-              <p>Bring in a team that understands live workflows, field setup, troubleshooting, and the pace of real events.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div>
-              <h3>Create reusable content</h3>
-              <p>Turn the live show into highlight clips, sponsor recaps, promo material, and proof-of-value for partners.</p>
-            </div>
-          </div>
+        <div class="process-grid">
+          <article class="step"><strong>1</strong><h3>Scope</h3><p>Define the event, audience, platforms, sponsor needs, site limitations, and desired production level.</p></article>
+          <article class="step"><strong>2</strong><h3>Design</h3><p>Build the camera plan, signal flow, crew structure, graphics package, comms, and field infrastructure.</p></article>
+          <article class="step"><strong>3</strong><h3>Deploy</h3><p>Install, test, rehearse, and prepare the show so the production is ready before the action begins.</p></article>
+          <article class="step"><strong>4</strong><h3>Deliver</h3><p>Run the live broadcast, support the venue experience, and create assets that keep working after the event.</p></article>
         </div>
       </div>
     </section>
@@ -582,10 +701,11 @@
       <div class="wrap">
         <div class="cta">
           <div>
-            <h2>Let’s build the right production plan for your event.</h2>
-            <p>Tell us what you are hosting, what you already have, and what kind of coverage you want. We can help with the full production or fill in the missing pieces.</p>
+            <span class="section-kicker">Start the conversation</span>
+            <h2>Build a broadcast that fits the event.</h2>
+            <p>Tell us what you are hosting, where it is happening, what you already have, and what you want the audience to experience. Down The Wire Productions can handle the complete show or fill the gaps in your current plan.</p>
           </div>
-          <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to talk about production support for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Let’s Chat</a>
+          <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to talk about production support for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AAudience / platforms:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Start a Project</a>
         </div>
       </div>
     </section>
@@ -593,8 +713,15 @@
 
   <footer>
     <div class="wrap footer-grid">
-      <span>© <span id="year"></span> Down The Wire Productions. Live broadcast & event production.</span>
-      <span><a href="mailto:josh.cssr@gmail.com">josh.cssr@gmail.com</a></span>
+      <div class="footer-brand">
+        <img src="assets/down-the-wire-logo.png" alt="" aria-hidden="true" />
+        <span>© <span id="year"></span> Down The Wire Productions.<br />Professional live broadcast and event production.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#work">Recent Work</a>
+        <a href="#services">Services</a>
+        <a href="mailto:josh.cssr@gmail.com">josh.cssr@gmail.com</a>
+      </div>
     </div>
   </footer>
 
