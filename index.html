@@ -413,34 +413,136 @@
     .step h3 { margin: 0 0 7px; font-size: 20px; }
     .step p { margin: 0; color: var(--muted); font-size: 14px; }
 
-    .cta {
+    .contact-shell {
       position: relative;
       overflow: hidden;
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 28px;
-      align-items: center;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 38px;
+      align-items: start;
       padding: 46px;
       border: 1px solid var(--line-strong);
       border-radius: 32px;
       background:
-        linear-gradient(120deg, rgba(239,77,45,.24), rgba(255,178,28,.1) 48%, rgba(17,23,34,.88)),
+        linear-gradient(120deg, rgba(239,77,45,.22), rgba(255,178,28,.08) 46%, rgba(17,23,34,.92)),
         var(--panel);
       box-shadow: var(--shadow);
     }
-    .cta::after {
+    .contact-shell::after {
       content: "";
       position: absolute;
-      width: 360px;
-      height: 360px;
-      right: -180px;
-      top: -180px;
+      width: 420px;
+      height: 420px;
+      right: -220px;
+      top: -220px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(239,39,111,.2), transparent 68%);
+      pointer-events: none;
     }
-    .cta > * { position: relative; z-index: 1; }
-    .cta h2 { margin: 0 0 10px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1; letter-spacing: -.048em; }
-    .cta p { max-width: 770px; margin: 0; color: #c3cddd; }
+    .contact-shell > * { position: relative; z-index: 1; }
+    .contact-copy {
+      position: sticky;
+      top: 112px;
+    }
+    .contact-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(36px, 4.8vw, 58px);
+      line-height: .98;
+      letter-spacing: -.05em;
+    }
+    .contact-copy > p { margin: 0; color: #c3cddd; font-size: 17px; }
+    .contact-points { display: grid; gap: 12px; margin-top: 28px; }
+    .contact-point {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .contact-point::before {
+      content: "✓";
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #111;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-weight: 900;
+    }
+
+    .project-form {
+      display: grid;
+      gap: 22px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(7,10,15,.62);
+      backdrop-filter: blur(12px);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .form-field { display: grid; gap: 7px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label,
+    .form-legend {
+      color: #e8edf5;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .required { color: var(--accent-2); }
+    .project-form input,
+    .project-form select,
+    .project-form textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      color: var(--text);
+      background: #0b1018;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 13px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .project-form textarea { min-height: 150px; resize: vertical; }
+    .project-form input::placeholder,
+    .project-form textarea::placeholder { color: #6f7a8a; }
+    .project-form select { color-scheme: dark; }
+    .project-form input:focus,
+    .project-form select:focus,
+    .project-form textarea:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(255,178,28,.12);
+      background: #0d131d;
+    }
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .check-option:hover { border-color: var(--line-strong); color: white; }
+    .check-option input { width: 17px; min-height: 17px; height: 17px; accent-color: var(--accent); }
+    .form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .project-form button { cursor: pointer; }
+    .form-note { margin: 0; color: var(--muted); font-size: 12px; }
+    .form-success {
+      margin: 0;
+      padding: 13px 15px;
+      border: 1px solid rgba(106,210,140,.4);
+      border-radius: 13px;
+      color: #d8ffe4;
+      background: rgba(54,145,84,.16);
+      font-size: 14px;
+    }
 
     footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
     .footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
@@ -477,7 +579,11 @@
       .case-image, .case-image img { min-height: 400px; }
       .gallery figure, .gallery figure:nth-child(2), .gallery figure:nth-child(3) { min-height: 420px; }
       .gallery figure:first-child { grid-column: auto; min-height: 360px; }
-      .cta { grid-template-columns: 1fr; padding: 30px; }
+      .contact-shell { grid-template-columns: 1fr; padding: 30px; }
+      .contact-copy { position: static; }
+      .form-grid, .checkbox-grid { grid-template-columns: 1fr; }
+      .project-form { padding: 20px; }
+      .form-actions .btn { width: 100%; }
       section { padding: 68px 0; }
       .footer-brand { align-items: flex-start; flex-direction: column; gap: 8px; }
     }
@@ -500,7 +606,7 @@
         <a href="#work">Recent Work</a>
         <a href="#services">Services</a>
         <a href="#process">Process</a>
-        <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions">Start a Project</a>
+        <a class="btn btn-primary" href="#contact">Start a Project</a>
       </nav>
     </div>
   </header>
@@ -513,7 +619,7 @@
           <h1>From camera to finish line. <span class="gradient-text">We deliver live.</span></h1>
           <p class="hero-copy">Down The Wire Productions builds scalable live broadcasts for mountain, motorsport, outdoor, and sponsor-driven events—combining cameras, crew, graphics, replay, commentary, comms, and field infrastructure into one dependable production.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to discuss live production for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Plan Your Broadcast</a>
+            <a class="btn btn-primary" href="#contact">Plan Your Broadcast</a>
             <a class="btn btn-secondary" href="#work">See Recent Work</a>
           </div>
           <div class="cred-strip" aria-label="Production strengths">
@@ -699,13 +805,111 @@
 
     <section id="contact">
       <div class="wrap">
-        <div class="cta">
-          <div>
-            <span class="section-kicker">Start the conversation</span>
-            <h2>Build a broadcast that fits the event.</h2>
-            <p>Tell us what you are hosting, where it is happening, what you already have, and what you want the audience to experience. Down The Wire Productions can handle the complete show or fill the gaps in your current plan.</p>
+        <div class="contact-shell">
+          <div class="contact-copy">
+            <span class="section-kicker">Start a project</span>
+            <h2>Tell us what the event needs to become.</h2>
+            <p>Share the basics below and we’ll use them to begin shaping the right production plan—whether that means a complete turnkey broadcast or targeted support inside your existing workflow.</p>
+            <div class="contact-points" aria-label="What happens next">
+              <div class="contact-point">We review the event, location, audience, and production goals.</div>
+              <div class="contact-point">We identify the camera, crew, graphics, audio, comms, and infrastructure needs.</div>
+              <div class="contact-point">We follow up using the contact information you provide.</div>
+            </div>
           </div>
-          <a class="btn btn-primary" href="mailto:josh.cssr@gmail.com?subject=Production Inquiry - Down The Wire Productions&body=Hey Josh,%0D%0A%0D%0AI'd like to talk about production support for an upcoming event.%0D%0A%0D%0AEvent name:%0D%0AEvent date:%0D%0ALocation:%0D%0AAudience / platforms:%0D%0AWhat we need help with:%0D%0A%0D%0AThanks!">Start a Project</a>
+
+          <form class="project-form" action="https://formsubmit.co/josh.cssr@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New Down The Wire Production Inquiry" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://builtintempo.github.io/DownTheWireProductions/?submitted=true#contact" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+
+            <p class="form-success" id="form-success" hidden>Thank you—your project details were submitted successfully.</p>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="contact-name">Your name <span class="required">*</span></label>
+                <input id="contact-name" name="Contact Name" type="text" autocomplete="name" required />
+              </div>
+              <div class="form-field">
+                <label for="company">Company or organization</label>
+                <input id="company" name="Company or Organization" type="text" autocomplete="organization" />
+              </div>
+              <div class="form-field">
+                <label for="email">Email <span class="required">*</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="Phone" type="tel" autocomplete="tel" />
+              </div>
+              <div class="form-field">
+                <label for="event-name">Event name <span class="required">*</span></label>
+                <input id="event-name" name="Event Name" type="text" required />
+              </div>
+              <div class="form-field">
+                <label for="event-type">Event type</label>
+                <select id="event-type" name="Event Type">
+                  <option value="">Select an event type</option>
+                  <option>Mountain bike / action sports</option>
+                  <option>Motorsports / drift</option>
+                  <option>Traditional sports</option>
+                  <option>Festival / concert</option>
+                  <option>Brand activation</option>
+                  <option>Corporate / venue event</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="event-date">Event date</label>
+                <input id="event-date" name="Event Date" type="date" />
+              </div>
+              <div class="form-field">
+                <label for="location">Location</label>
+                <input id="location" name="Event Location" type="text" placeholder="City, state or venue" />
+              </div>
+              <div class="form-field">
+                <label for="audience">Expected in-person audience</label>
+                <input id="audience" name="Expected Audience" type="text" placeholder="Estimated attendance" />
+              </div>
+              <div class="form-field">
+                <label for="platforms">Streaming or delivery platforms</label>
+                <input id="platforms" name="Platforms" type="text" placeholder="YouTube, venue screens, custom player…" />
+              </div>
+              <div class="form-field full">
+                <span class="form-legend">What support are you looking for?</span>
+                <div class="checkbox-grid">
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Full live broadcast" /> Full live broadcast</label>
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Camera crew" /> Camera crew</label>
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Replay and graphics" /> Replay and graphics</label>
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Audio and commentary" /> Audio and commentary</label>
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Fiber, networking, and comms" /> Fiber, networking, and comms</label>
+                  <label class="check-option"><input type="checkbox" name="Services Needed[]" value="Consulting or gear support" /> Consulting or gear support</label>
+                </div>
+              </div>
+              <div class="form-field full">
+                <label for="budget">Approximate production budget</label>
+                <select id="budget" name="Approximate Budget">
+                  <option value="">Select a range</option>
+                  <option>Under $5,000</option>
+                  <option>$5,000–$15,000</option>
+                  <option>$15,000–$30,000</option>
+                  <option>$30,000–$60,000</option>
+                  <option>$60,000+</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-field full">
+                <label for="details">Project details <span class="required">*</span></label>
+                <textarea id="details" name="Project Details" placeholder="Tell us what you already have, what you need help with, and what you want the audience or sponsors to experience." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Send Project Details</button>
+              <p class="form-note">Required fields are marked with an asterisk.</p>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -727,6 +931,13 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('submitted') === 'true') {
+      const successMessage = document.getElementById('form-success');
+      successMessage.hidden = false;
+      history.replaceState(null, '', `${window.location.pathname}#contact`);
+    }
   </script>
 </body>
 </html>
