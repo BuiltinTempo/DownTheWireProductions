@@ -188,7 +188,7 @@ header {
 }
 
 .brand img {
-  width: 190px !important;
+  width: 250px !important;
   filter: none !important;
   transform: none !important;
 }
@@ -462,6 +462,7 @@ footer {
 }
 
 .footer-brand img {
+  width: 180px !important;
   filter: none !important;
 }
 
@@ -486,7 +487,7 @@ footer {
   }
 
   .brand img {
-    width: 145px !important;
+    width: 180px !important;
   }
 
   h1,
