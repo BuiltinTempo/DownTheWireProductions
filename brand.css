@@ -596,3 +596,44 @@ img[data-parallax] {
 .live-card {
   background: rgba(0, 0, 0, .88) !important;
 }
+/* SPONSOR HERO READABILITY FIX V4
+   Add a semi-transparent black panel behind the hero copy so the
+   headline and paragraph remain legible over bright photographs. */
+.partner-hero__content {
+  position: relative !important;
+  display: inline-block !important;
+  max-width: 1080px !important;
+  padding: 30px 34px 34px !important;
+  background: rgba(0, 0, 0, 0.56) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(1px) !important;
+}
+
+.partner-hero__content .eyebrow,
+.partner-hero__content .hero-actions,
+.partner-hero__content h1,
+.partner-hero__content .hero-copy {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.partner-hero__content .hero-copy {
+  max-width: 760px !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.partner-hero__content .eyebrow {
+  background: rgba(0, 0, 0, 0.88) !important;
+}
+
+@media (max-width: 760px) {
+  .partner-hero__content {
+    width: 100% !important;
+    padding: 18px 18px 22px !important;
+    background: rgba(0, 0, 0, 0.68) !important;
+  }
+
+  .partner-hero__content .hero-copy {
+    color: rgba(255, 255, 255, 0.96) !important;
+  }
+}
