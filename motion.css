@@ -349,4 +349,60 @@ img[data-parallax] {
     transform: none !important;
     transition: none !important;
   }
+}/* DTW PHOTO FIX V3
+   Preserve original photo color and brightness at every stage.
+   Text/card motion remains active, but image curtain overlays are disabled. */
+html.motion-ready [data-motion="image"]::before,
+[data-motion="image"]::before,
+.hero-photo::before,
+.hero-photo::after,
+.hero-visual::before,
+.hero-visual::after,
+.photo-card::before,
+.photo-card::after,
+.case-image::before,
+.case-image::after,
+.feature-image::before,
+.feature-image::after,
+.gallery figure::before,
+.gallery figure::after,
+.partner-hero::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html.motion-ready [data-motion="image"],
+html.motion-ready [data-motion="image"].is-inview {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+html.motion-ready [data-motion="image"] img,
+html.motion-ready [data-motion="image"].is-inview img,
+.hero-photo img,
+.hero-visual img,
+.photo-card img,
+.case-image img,
+.feature-image img,
+.gallery img,
+img[data-parallax] {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Keep only a gentle scale reveal; never darken the image. */
+html.motion-ready [data-motion="image"] img {
+  transform: scale(1.035);
+}
+
+html.motion-ready [data-motion="image"].is-inview img {
+  transform: scale(1);
 }

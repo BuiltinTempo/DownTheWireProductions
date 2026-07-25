@@ -533,3 +533,66 @@ img[data-parallax] {
 .live-card {
   background: rgba(0, 0, 0, .88) !important;
 }
+/* DTW PHOTO FIX V3 - final cascade override */
+.hero-photo,
+.hero-visual,
+.photo-card,
+.case-image,
+.feature-image,
+.gallery figure,
+.partner-hero {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  background-blend-mode: normal !important;
+}
+
+.hero-photo::before,
+.hero-photo::after,
+.hero-visual::before,
+.hero-visual::after,
+.photo-card::before,
+.photo-card::after,
+.case-image::before,
+.case-image::after,
+.feature-image::before,
+.feature-image::after,
+.gallery figure::before,
+.gallery figure::after,
+.partner-hero::after,
+html.motion-ready [data-motion="image"]::before,
+[data-motion="image"]::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  visibility: hidden !important;
+}
+
+.hero-photo img,
+.hero-visual img,
+.photo-card img,
+.case-image img,
+.feature-image img,
+.gallery figure img,
+.partner-hero img,
+img[data-parallax] {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Sponsor hero background image remains full color. */
+.partner-hero::before {
+  filter: none !important;
+  opacity: 1 !important;
+  background-blend-mode: normal !important;
+}
+
+/* Readability is handled locally behind text, not over the whole image. */
+.photo-caption,
+.hero-label,
+.live-card {
+  background: rgba(0, 0, 0, .88) !important;
+}
