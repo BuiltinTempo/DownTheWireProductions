@@ -695,3 +695,66 @@ img[data-parallax] {
     0 0 9px rgba(255, 255, 255, 0.82),
     0 0 22px rgba(255, 255, 255, 0.46) !important;
 }
+
+
+/* WHITE TEXT + RED ACCENT FIX V7
+   Replace glow with full-contrast white typography and restrained DTW-red rules. */
+.gradient-text,
+.gradient-text *,
+.section-kicker,
+.section-kicker *,
+.card-num,
+.card-num *,
+.package-label,
+.package-label *,
+.value-card span,
+.value-card span *,
+.partner-card__number,
+.partner-card__number * {
+  color: #FFFFFF !important;
+  text-shadow: none !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
+/* Major accent phrases stay white and receive a flat red underline. */
+.gradient-text {
+  position: relative !important;
+  display: inline-block !important;
+  padding-bottom: .10em !important;
+}
+
+.gradient-text::after {
+  content: "" !important;
+  display: block !important;
+  width: 100% !important;
+  height: 4px !important;
+  margin-top: .08em !important;
+  background: #993939 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Small editorial labels use a red side rule instead of red text. */
+.card-num,
+.package-label,
+.value-card span,
+.partner-card__number {
+  display: inline-block !important;
+  padding-left: 11px !important;
+  border-left: 3px solid #993939 !important;
+}
+
+/* Section kickers already carry the approved red rule below. */
+.section-kicker {
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Keep the sponsor hero treatment crisp and readable. */
+.partner-hero__content h1 .gradient-text,
+.partner-hero__content h1 .gradient-text * {
+  color: #FFFFFF !important;
+  text-shadow: none !important;
+}
