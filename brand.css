@@ -637,3 +637,27 @@ img[data-parallax] {
     color: rgba(255, 255, 255, 0.96) !important;
   }
 }
+
+
+/* RED TEXT OUTER GLOW FIX V5
+   Improve legibility of DTW red text on black backgrounds with a restrained white outer glow. */
+.gradient-text,
+.partner-hero__content .gradient-text,
+.partner-hero__content h1 .gradient-text,
+.section-kicker,
+.card-num,
+.package-label,
+.value-card span,
+.partner-card__number {
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.30),
+    0 0 22px rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Stronger glow specifically for the sponsor hero red headline line. */
+.partner-hero__content h1 .gradient-text {
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.34),
+    0 0 28px rgba(255, 255, 255, 0.18) !important;
+}
+
