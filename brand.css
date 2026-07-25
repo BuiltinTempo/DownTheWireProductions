@@ -336,7 +336,7 @@ header {
 .case-image img,
 .feature-image img,
 .gallery img {
-  filter: saturate(.78) brightness(.72) contrast(1.08);
+  filter: none !important;
 }
 
 .photo-caption,
@@ -355,7 +355,7 @@ header {
 .partner-hero::before {
   background:
     url("event-video-wall.webp") center / cover no-repeat !important;
-  filter: saturate(.7) brightness(.62) contrast(1.08);
+  filter: none !important;
 }
 
 .partner-hero::after {
