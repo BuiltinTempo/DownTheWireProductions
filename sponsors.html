@@ -236,6 +236,30 @@
         radial-gradient(circle at 80% 28%, rgba(255,178,28,.13), transparent 30%),
         #090c12;
     }
+    .statement-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 40px;
+      align-items: center;
+    }
+    .statement-copy {
+      max-width: 1080px;
+    }
+    .statement-image {
+      min-height: 560px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: #000;
+    }
+    .statement-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
     .statement-credit {
       margin-top: 30px;
       color: var(--muted);
@@ -520,6 +544,9 @@
       .founding-grid { grid-template-columns: 1fr; }
       .network-label { position: static; }
       .value-grid { grid-template-columns: 1fr 1fr; }
+      .statement-layout { grid-template-columns: 1fr; }
+      .statement-image,
+      .statement-image img { min-height: 420px; }
       .feature-image,
       .feature-image img { min-height: 500px; }
     }
@@ -651,11 +678,16 @@
     </section>
 
     <section class="statement-section">
-      <div class="wrap">
-        <p class="cinematic-statement" data-accessible-label="Every partner helps build something new: live production designed for the places traditional broadcasts do not reach.">
-          Every partner helps build something new: <em>live production designed for the places traditional broadcasts do not reach.</em>
-        </p>
-        <p class="statement-credit">DOWN THE WIRE PRODUCTIONS · PARTNERSHIP PHILOSOPHY</p>
+      <div class="wrap statement-layout">
+        <div class="statement-copy">
+          <p class="cinematic-statement" data-accessible-label="Every partner helps build something new: live production designed for the places traditional broadcasts do not reach.">
+            Every partner helps build something new: <em>live production designed for the places traditional broadcasts do not reach.</em>
+          </p>
+          <p class="statement-credit">DOWN THE WIRE PRODUCTIONS · PARTNERSHIP PHILOSOPHY</p>
+        </div>
+        <div class="statement-image" data-motion="image">
+          <img src="camera-operator.webp" alt="Down The Wire camera operator capturing live action in the field" loading="lazy" />
+        </div>
       </div>
     </section>
 
