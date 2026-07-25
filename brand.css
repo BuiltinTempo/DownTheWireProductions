@@ -496,4 +496,40 @@ footer {
   .cinematic-statement {
     letter-spacing: .035em !important;
   }
+}/* PHOTO COLOR FIX V2
+   Show photography at its original brightness and color.
+   No dark overlays, scrims, opacity masks, or image filters. */
+.hero-photo::after,
+.hero-visual::after,
+.photo-card::after,
+.partner-hero::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+.hero-photo img,
+.hero-visual img,
+.photo-card img,
+.case-image img,
+.feature-image img,
+.gallery img,
+img[data-parallax] {
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+/* The sponsor hero uses a background image rather than an img element. */
+.partner-hero::before {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Keep text readable without darkening the entire image. */
+.photo-caption,
+.hero-label,
+.live-card {
+  background: rgba(0, 0, 0, .88) !important;
 }
