@@ -1,0 +1,498 @@
+/*
+  DOWN THE WIRE BRAND OVERRIDE
+  Brand Guidelines V1 - July 2026
+
+  DISPLAY FONT:
+  Aviano must be activated through the site's approved Adobe Fonts kit.
+  This stylesheet intentionally requests Aviano by its proper family name.
+  Body copy uses a neutral system sans until DTW selects its permanent companion face.
+*/
+
+:root {
+  --bg: #000000 !important;
+  --bg-soft: #000000 !important;
+  --panel: #000000 !important;
+  --panel-2: #000000 !important;
+  --text: #FFFFFF !important;
+  --muted: #A6A6A6 !important;
+  --accent: #993939 !important;
+  --accent-2: #993939 !important;
+  --pink: #993939 !important;
+  --line: rgba(255, 255, 255, .18) !important;
+  --line-strong: rgba(255, 255, 255, .32) !important;
+  --shadow: none !important;
+  --radius: 0px !important;
+  --font-display: "Aviano";
+  --font-body: Arial, Helvetica, sans-serif;
+}
+
+/* Core surface and typography */
+html,
+body {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+body {
+  font-family: var(--font-body) !important;
+  background-image: none !important;
+}
+
+h1,
+h2,
+h3,
+.cinematic-statement,
+.site-intro__title,
+.brand-title,
+.section-title {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+  letter-spacing: .055em !important;
+  text-shadow: none !important;
+}
+
+h1 {
+  line-height: .92 !important;
+}
+
+h2,
+.cinematic-statement {
+  line-height: .98 !important;
+}
+
+p,
+li,
+input,
+select,
+textarea,
+label {
+  font-family: var(--font-body) !important;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Remove gradients, glows, bevels, and decorative shadows */
+*,
+*::before,
+*::after {
+  text-shadow: none !important;
+}
+
+.btn,
+.card,
+.cred,
+.proof,
+.step,
+.feature,
+.photo-card,
+.hero-photo,
+.hero-visual,
+.case-image,
+.feature-image,
+.live-card,
+.contact-shell,
+.project-form,
+.sponsor-form,
+.package-card,
+.category-card,
+.opportunity-card,
+.partner-card,
+.value-card,
+.note-panel {
+  box-shadow: none !important;
+}
+
+body,
+section,
+.field-section,
+.feature-section,
+.showcase-section,
+.founding-section,
+.network-section,
+.statement-section,
+.contact-shell,
+.card,
+.cred,
+.proof,
+.step,
+.feature,
+.live-card,
+.project-form,
+.sponsor-form,
+.package-card,
+.category-card,
+.opportunity-card,
+.partner-card,
+.value-card,
+.note-panel {
+  background-image: none !important;
+}
+
+/* Flat geometry */
+.btn,
+.eyebrow,
+.tag,
+.card,
+.cred,
+.proof,
+.step,
+.feature,
+.photo-card,
+.hero-photo,
+.hero-visual,
+.case-image,
+.feature-image,
+.live-card,
+.contact-shell,
+.project-form,
+.sponsor-form,
+.package-card,
+.category-card,
+.opportunity-card,
+.partner-card,
+.value-card,
+.note-panel,
+.project-form input,
+.project-form select,
+.project-form textarea,
+.sponsor-form input,
+.sponsor-form select,
+.sponsor-form textarea,
+.check-option,
+.feature-icon,
+.category-icon,
+.step strong,
+.contact-point::before {
+  border-radius: 0 !important;
+}
+
+/* Header and logo handling */
+header {
+  min-height: 90px;
+  background: rgba(0, 0, 0, .96) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, .2) !important;
+  backdrop-filter: none !important;
+}
+
+.nav {
+  min-height: 90px !important;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  padding: 17px 0;
+}
+
+.brand img {
+  width: 190px !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.nav-links {
+  color: #9A9A9A !important;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.nav-links > a:not(.btn):hover,
+.nav-links > a[aria-current="page"] {
+  color: #FFFFFF !important;
+}
+
+/* Brand red is an accent, not a fill */
+.gradient-text {
+  color: #993939 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
+.section-kicker,
+.card-num,
+.package-label {
+  color: #993939 !important;
+  background: transparent !important;
+}
+
+.eyebrow {
+  color: #FFFFFF !important;
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, .28) !important;
+}
+
+.eyebrow::before {
+  display: none !important;
+}
+
+.live-status::before {
+  background: #993939 !important;
+  box-shadow: none !important;
+}
+
+/* Buttons stay black and white; red remains the accent elsewhere */
+.btn {
+  min-height: 48px;
+  color: #FFFFFF !important;
+  background: #000000 !important;
+  border: 1px solid #FFFFFF !important;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  color: #000000 !important;
+  background: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+.btn-secondary {
+  color: #FFFFFF !important;
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, .5) !important;
+}
+
+.btn:hover {
+  color: #FFFFFF !important;
+  background: #993939 !important;
+  border-color: #993939 !important;
+  transform: none !important;
+}
+
+/* Panels and cards */
+.card,
+.cred,
+.proof,
+.step,
+.feature,
+.live-card,
+.project-form,
+.sponsor-form,
+.package-card,
+.category-card,
+.opportunity-card,
+.partner-card,
+.value-card,
+.note-panel,
+.contact-shell {
+  background: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, .22) !important;
+}
+
+.package-card.featured {
+  border-color: #993939 !important;
+}
+
+.card::before,
+.package-card::before,
+.opportunity-card::before,
+.partner-card::after,
+.contact-shell::after {
+  display: none !important;
+}
+
+.feature-icon,
+.category-icon,
+.step strong,
+.contact-point::before {
+  color: #000000 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+.card-num {
+  letter-spacing: .16em;
+}
+
+.value-card span,
+.partner-card__number {
+  color: #993939 !important;
+}
+
+/* Photography: dark, simple scrim so white type holds */
+.hero-photo,
+.hero-visual,
+.photo-card,
+.case-image,
+.feature-image {
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, .24) !important;
+}
+
+.hero-photo::after,
+.hero-visual::after,
+.photo-card::after {
+  display: block !important;
+  background: rgba(0, 0, 0, .58) !important;
+}
+
+.hero-photo img,
+.hero-visual img,
+.photo-card img,
+.case-image img,
+.feature-image img,
+.gallery img {
+  filter: saturate(.78) brightness(.72) contrast(1.08);
+}
+
+.photo-caption,
+.hero-label {
+  color: #FFFFFF !important;
+}
+
+.hero-label {
+  background: rgba(0, 0, 0, .9) !important;
+  border-color: rgba(255, 255, 255, .28) !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+}
+
+/* Sponsor page hero: one darkened photograph, no layered color effects */
+.partner-hero::before {
+  background:
+    url("event-video-wall.webp") center / cover no-repeat !important;
+  filter: saturate(.7) brightness(.62) contrast(1.08);
+}
+
+.partner-hero::after {
+  display: block !important;
+  background: rgba(0, 0, 0, .62) !important;
+}
+
+.network-section,
+.statement-section,
+.founding-section,
+.showcase-section,
+.field-section,
+.feature-section {
+  background: #000000 !important;
+}
+
+/* Forms */
+.project-form input,
+.project-form select,
+.project-form textarea,
+.sponsor-form input,
+.sponsor-form select,
+.sponsor-form textarea {
+  color: #FFFFFF !important;
+  background: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, .34) !important;
+}
+
+.project-form input:focus,
+.project-form select:focus,
+.project-form textarea:focus,
+.sponsor-form input:focus,
+.sponsor-form select:focus,
+.sponsor-form textarea:focus {
+  background: #000000 !important;
+  border-color: #993939 !important;
+  box-shadow: none !important;
+  outline: 1px solid #993939 !important;
+  outline-offset: 2px;
+}
+
+.check-option {
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, .24) !important;
+}
+
+.check-option input {
+  accent-color: #993939 !important;
+}
+
+.form-success {
+  color: #FFFFFF !important;
+  background: #000000 !important;
+  border-color: #993939 !important;
+}
+
+/* Motion layer, kept restrained and flat */
+.motion-progress {
+  height: 2px !important;
+  background: #993939 !important;
+  box-shadow: none !important;
+}
+
+.site-intro {
+  background: #000000 !important;
+}
+
+.site-intro__eyebrow {
+  color: #9A9A9A !important;
+}
+
+.site-intro__rule {
+  background: rgba(255, 255, 255, .18) !important;
+}
+
+.site-intro__rule::after {
+  background: #993939 !important;
+}
+
+.motion-marquee {
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, .22) !important;
+}
+
+.motion-marquee__item::after {
+  color: #993939 !important;
+}
+
+html.motion-ready [data-motion="image"]::before {
+  background: #000000 !important;
+}
+
+/* Remove magnetic visual displacement to keep controls disciplined */
+.motion-magnetic {
+  --magnetic-x: 0px !important;
+  --magnetic-y: 0px !important;
+  transform: none !important;
+}
+
+/* Footer */
+footer {
+  background: #000000 !important;
+  border-top-color: rgba(255, 255, 255, .2) !important;
+}
+
+.footer-brand img {
+  filter: none !important;
+}
+
+/* Small red rules, echoing the guideline page without filling space red */
+.section-kicker::after {
+  content: "";
+  display: block;
+  width: 74px;
+  height: 3px;
+  margin-top: 12px;
+  background: #993939;
+}
+
+@media (max-width: 760px) {
+  header,
+  .nav {
+    min-height: 76px !important;
+  }
+
+  .brand {
+    padding: 13px 0;
+  }
+
+  .brand img {
+    width: 145px !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  .cinematic-statement {
+    letter-spacing: .035em !important;
+  }
+}
