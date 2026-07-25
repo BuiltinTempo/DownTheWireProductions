@@ -639,64 +639,6 @@ img[data-parallax] {
 }
 
 
-/* RED TEXT OUTER GLOW FIX V5
-   Improve legibility of DTW red text on black backgrounds with a restrained white outer glow. */
-.gradient-text,
-.partner-hero__content .gradient-text,
-.partner-hero__content h1 .gradient-text,
-.section-kicker,
-.card-num,
-.package-label,
-.value-card span,
-.partner-card__number {
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.30),
-    0 0 22px rgba(255, 255, 255, 0.14) !important;
-}
-
-/* Stronger glow specifically for the sponsor hero red headline line. */
-.partner-hero__content h1 .gradient-text {
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.34),
-    0 0 28px rgba(255, 255, 255, 0.18) !important;
-}
-
-/* RED TEXT GLOW FIX V6
-   The motion script wraps animated words in nested spans. The earlier global
-   no-shadow rule was landing directly on those spans, so the parent glow was
-   not visible. Apply the glow to the text elements and every animated child. */
-:is(
-  .gradient-text,
-  .section-kicker,
-  .card-num,
-  .package-label,
-  .value-card span,
-  .partner-card__number
-),
-:is(
-  .gradient-text,
-  .section-kicker,
-  .card-num,
-  .package-label,
-  .value-card span,
-  .partner-card__number
-) * {
-  text-shadow:
-    0 0 2px rgba(255, 255, 255, 0.96),
-    0 0 7px rgba(255, 255, 255, 0.72),
-    0 0 16px rgba(255, 255, 255, 0.38) !important;
-}
-
-/* Stronger treatment for the large red sponsor hero line. */
-.partner-hero__content h1 .gradient-text,
-.partner-hero__content h1 .gradient-text * {
-  text-shadow:
-    0 0 2px rgba(255, 255, 255, 1),
-    0 0 9px rgba(255, 255, 255, 0.82),
-    0 0 22px rgba(255, 255, 255, 0.46) !important;
-}
-
-
 /* WHITE TEXT + RED ACCENT FIX V7
    Replace glow with full-contrast white typography and restrained DTW-red rules. */
 .gradient-text,
@@ -757,4 +699,35 @@ img[data-parallax] {
 .partner-hero__content h1 .gradient-text * {
   color: #FFFFFF !important;
   text-shadow: none !important;
+}
+/* NO-GLOW CLEANUP V8
+   Final safeguard for headings and motion-generated nested word spans. */
+html body :is(
+  h1,
+  h2,
+  h3,
+  .cinematic-statement,
+  .gradient-text,
+  .section-kicker,
+  .card-num,
+  .package-label,
+  .partner-card__number,
+  .value-card span,
+  .split-word,
+  .split-word__inner
+),
+html body :is(
+  h1,
+  h2,
+  h3,
+  .cinematic-statement,
+  .gradient-text,
+  .section-kicker,
+  .card-num,
+  .package-label,
+  .partner-card__number,
+  .value-card span
+) * {
+  text-shadow: none !important;
+  filter: none !important;
 }
