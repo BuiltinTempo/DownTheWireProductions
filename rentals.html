@@ -395,6 +395,7 @@
     }
   
   </style>
+  <link rel="stylesheet" href="motion.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -446,6 +447,24 @@
         </div>
       </div>
     </section>
+
+    <div class="motion-marquee" aria-label="Down The Wire production capabilities">
+      <div class="motion-marquee__track" aria-hidden="true">
+        <span class="motion-marquee__item">Live Broadcast</span>
+        <span class="motion-marquee__item">Field Infrastructure</span>
+        <span class="motion-marquee__item">Replay &amp; Graphics</span>
+        <span class="motion-marquee__item">Audio &amp; Comms</span>
+        <span class="motion-marquee__item">Venue Screens</span>
+        <span class="motion-marquee__item">Show Builds</span>
+        <span class="motion-marquee__item">Live Broadcast</span>
+        <span class="motion-marquee__item">Field Infrastructure</span>
+        <span class="motion-marquee__item">Replay &amp; Graphics</span>
+        <span class="motion-marquee__item">Audio &amp; Comms</span>
+        <span class="motion-marquee__item">Venue Screens</span>
+        <span class="motion-marquee__item">Show Builds</span>
+      </div>
+    </div>
+
 
     <section id="packages">
       <div class="wrap">
@@ -726,13 +745,7 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('submitted') === 'true') {
-      const successMessage = document.getElementById('form-success');
-      if (successMessage) successMessage.hidden = false;
-      history.replaceState(null, '', `${window.location.pathname}#contact`);
-    }
-  </script>
+</script>
+  <script src="motion.js" defer></script>
 </body>
 </html>
