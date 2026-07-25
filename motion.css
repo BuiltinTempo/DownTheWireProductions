@@ -324,11 +324,6 @@ img[data-parallax] {
   background-clip: text;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .motion-marquee:hover .motion-marquee__track {
-    animation-play-state: paused;
-  }
-}
 
 @media (max-width: 760px) {
   .site-intro__eyebrow { letter-spacing: .19em; }
@@ -339,7 +334,7 @@ img[data-parallax] {
 @media (prefers-reduced-motion: reduce) {
   .site-intro { display: none !important; }
   .motion-progress { display: none; }
-  .motion-marquee__track { animation: none; }
+  .motion-marquee__track { animation-duration: 70s; }
   html.motion-ready .split-word__inner,
   html.motion-ready [data-motion="reveal"],
   html.motion-ready [data-motion="image"],
@@ -405,4 +400,31 @@ html.motion-ready [data-motion="image"] img {
 
 html.motion-ready [data-motion="image"].is-inview img {
   transform: scale(1);
+}
+/* MARQUEE RELIABILITY FIX V9 */
+.motion-marquee__track {
+  animation-name: dtwMarquee !important;
+  animation-duration: 28s !important;
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  animation-play-state: running !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+@keyframes dtwMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Keep motion gentler, but still functional, when reduced motion is enabled. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-marquee__track {
+    animation-duration: 70s !important;
+    animation-play-state: running !important;
+  }
 }
