@@ -661,3 +661,37 @@ img[data-parallax] {
     0 0 28px rgba(255, 255, 255, 0.18) !important;
 }
 
+/* RED TEXT GLOW FIX V6
+   The motion script wraps animated words in nested spans. The earlier global
+   no-shadow rule was landing directly on those spans, so the parent glow was
+   not visible. Apply the glow to the text elements and every animated child. */
+:is(
+  .gradient-text,
+  .section-kicker,
+  .card-num,
+  .package-label,
+  .value-card span,
+  .partner-card__number
+),
+:is(
+  .gradient-text,
+  .section-kicker,
+  .card-num,
+  .package-label,
+  .value-card span,
+  .partner-card__number
+) * {
+  text-shadow:
+    0 0 2px rgba(255, 255, 255, 0.96),
+    0 0 7px rgba(255, 255, 255, 0.72),
+    0 0 16px rgba(255, 255, 255, 0.38) !important;
+}
+
+/* Stronger treatment for the large red sponsor hero line. */
+.partner-hero__content h1 .gradient-text,
+.partner-hero__content h1 .gradient-text * {
+  text-shadow:
+    0 0 2px rgba(255, 255, 255, 1),
+    0 0 9px rgba(255, 255, 255, 0.82),
+    0 0 22px rgba(255, 255, 255, 0.46) !important;
+}
