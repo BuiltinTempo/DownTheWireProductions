@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsorship Opportunities | Down The Wire Productions</title>
-  <meta name="description" content="Partner with Down The Wire Productions through broadcast integration, venue visibility, branded content, and custom sponsorship opportunities across action sports, motorsports, mountain, and outdoor events." />
+  <title>Equipment Rentals &amp; Show Builds | Down The Wire Productions</title>
+  <meta name="description" content="Rent broadcast equipment, book an engineered show build with an EIC, or secure a complete turnkey production package from Down The Wire Productions." />
   <meta name="theme-color" content="#080a0f" />
-  <meta property="og:title" content="Sponsorship Opportunities | Down The Wire Productions" />
-  <meta property="og:description" content="Build meaningful sponsor visibility into live broadcasts, venue experiences, and reusable event content." />
+  <meta property="og:title" content="Equipment Rentals &amp; Show Builds | Down The Wire Productions" />
+  <meta property="og:description" content="Broadcast-grade equipment rentals, engineered show packages, EIC support, field infrastructure, and turnkey live production." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="event-video-wall.webp" />
+  <meta property="og:image" content="venue.webp" />
   <link rel="icon" href="favicon.png" />
 
   <style>
+
     :root {
       --bg: #080a0f;
       --bg-soft: #0c1119;
@@ -166,6 +167,50 @@
     .section-head p { margin: 0; color: var(--muted); font-size: 18px; }
 
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .package-card {
+      position: relative; overflow: hidden; min-height: 390px;
+      padding: 28px; border: 1px solid var(--line); border-radius: 24px;
+      background: linear-gradient(180deg, rgba(22,31,45,.98), rgba(17,23,34,.72));
+    }
+    .package-card.featured {
+      border-color: rgba(255,178,28,.52);
+      box-shadow: 0 18px 55px rgba(239,77,45,.14);
+    }
+    .package-card::before {
+      content: ""; position: absolute; width: 180px; height: 180px;
+      right: -95px; top: -95px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,77,45,.24), transparent 70%);
+    }
+    .package-card h3 { margin: 0 0 10px; font-size: 27px; line-height: 1.05; }
+    .package-card p, .package-card li { color: var(--muted); }
+    .package-card ul { margin: 18px 0 0; padding-left: 18px; }
+    .package-label {
+      display: inline-flex; margin-bottom: 18px; padding: 7px 10px;
+      border: 1px solid var(--line); border-radius: 999px;
+      color: var(--accent-2); background: rgba(255,255,255,.035);
+      font-size: 11px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase;
+    }
+    .package-card .btn { margin-top: 24px; width: 100%; }
+    .category-card {
+      padding: 24px; border: 1px solid var(--line); border-radius: 22px;
+      background: rgba(255,255,255,.035);
+    }
+    .category-card h3 { margin: 0 0 8px; font-size: 21px; }
+    .category-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .category-icon {
+      width: 44px; height: 44px; display: grid; place-items: center;
+      margin-bottom: 18px; border-radius: 14px; color: #111;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-weight: 900;
+    }
+    .note-panel {
+      margin-top: 20px; padding: 18px 20px; border: 1px solid var(--line);
+      border-radius: 18px; color: var(--muted); background: rgba(255,255,255,.03);
+      font-size: 14px;
+    }
+
     .opportunity-card {
       position: relative; overflow: hidden; min-height: 330px;
       padding: 26px; border: 1px solid var(--line); border-radius: 24px;
@@ -314,7 +359,7 @@
 
     @media (max-width: 1050px) {
       .hero-grid, .feature-split { grid-template-columns: 1fr; }
-      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-4, .package-grid, .category-grid { grid-template-columns: 1fr 1fr; }
       .hero-visual { min-height: 500px; }
       .hero-visual img { min-height: 500px; }
     }
@@ -329,7 +374,7 @@
       .nav-links .btn { min-height: 40px; padding: 9px 13px; font-size: 12px; }
       .sponsor-hero { min-height: auto; padding-top: 48px; }
       h1 { font-size: clamp(44px, 15vw, 66px); }
-      .proof-strip, .grid-4, .process-grid { grid-template-columns: 1fr; }
+      .proof-strip, .grid-4, .package-grid, .category-grid, .process-grid { grid-template-columns: 1fr; }
       .feature-image, .feature-image img { min-height: 410px; }
       .contact-shell { grid-template-columns: 1fr; padding: 30px; }
       .contact-copy { position: static; }
@@ -348,6 +393,7 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; }
     }
+  
   </style>
 </head>
 <body>
@@ -358,12 +404,12 @@
       <a class="brand" href="index.html" aria-label="Down The Wire Productions home">
         <img src="down-the-wire-logo.png" alt="Down The Wire Productions" />
       </a>
-      <nav class="nav-links" aria-label="Sponsor page navigation">
+      <nav class="nav-links" aria-label="Rentals page navigation">
         <a class="nav-page" href="index.html">Home</a>
-        <a href="#opportunities">Opportunities</a>
-        <a class="nav-page" href="rentals.html">Rentals</a>
-        <a aria-current="page" href="sponsors.html">Sponsors</a>
-        <a class="btn btn-primary" href="#contact">Become a Partner</a>
+        <a href="#packages">Packages</a>
+        <a href="#equipment">Equipment</a>
+        <a class="nav-page" href="sponsors.html">Sponsors</a>
+        <a class="btn btn-primary" href="#contact">Request a Quote</a>
       </nav>
     </div>
   </header>
@@ -373,124 +419,138 @@
       <div class="wrap">
         <div class="hero-grid">
           <div>
-            <span class="eyebrow">Sponsorship and brand partnerships</span>
-            <h1>Put your brand <span class="gradient-text">inside the action.</span></h1>
-            <p class="hero-copy">Down The Wire Productions creates sponsor opportunities that live across the broadcast, the venue, and the content surrounding an event. Instead of adding a logo at the end, we build partner visibility into the audience experience from the beginning.</p>
+            <span class="eyebrow">Equipment rentals and engineered show systems</span>
+            <h1>Rent the gear. <span class="gradient-text">Build the show.</span></h1>
+            <p class="hero-copy">From individual equipment packages to complete prebuilt production systems, Down The Wire Productions helps crews scale quickly without starting from zero. Choose a straightforward rental, add an EIC and engineered show build, or hand us the complete live production.</p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#contact">Discuss a Partnership</a>
-              <a class="btn btn-secondary" href="#opportunities">View Opportunities</a>
+              <a class="btn btn-primary" href="#contact">Request Availability</a>
+              <a class="btn btn-secondary" href="#packages">Compare Packages</a>
               <a class="btn btn-secondary" href="index.html">Return Home</a>
             </div>
           </div>
 
-          <div class="hero-visual" aria-label="Live event broadcast shown on a large outdoor video wall">
-            <img src="event-video-wall.webp" alt="Spectators watching a live event broadcast on a large outdoor video wall" fetchpriority="high" />
+          <div class="hero-visual" aria-label="Outdoor live production venue">
+            <img src="venue.webp" alt="Outdoor mountain event venue supported by a live broadcast production" fetchpriority="high" />
             <div class="hero-label">
-              <strong>More than a logo placement.</strong>
-              <span>Broadcast integration, venue visibility, branded storytelling, and reusable content.</span>
+              <strong>Production systems built to work together.</strong>
+              <span>Cameras, control, replay, audio, comms, fiber, networking, power, and field support.</span>
             </div>
           </div>
         </div>
 
-        <div class="proof-strip" aria-label="Sponsor partnership strengths">
-          <div class="proof"><strong>Live Broadcast</strong><span>Visibility within the show and its storytelling</span></div>
-          <div class="proof"><strong>Venue Presence</strong><span>Reach spectators through the on-site experience</span></div>
-          <div class="proof"><strong>Reusable Content</strong><span>Create assets that remain useful after the event</span></div>
-          <div class="proof"><strong>Custom Programs</strong><span>Partnerships shaped around real brand goals</span></div>
+        <div class="proof-strip" aria-label="Rental and show-build strengths">
+          <div class="proof"><strong>Broadcast Grade</strong><span>Professional equipment selected for live production</span></div>
+          <div class="proof"><strong>EIC Available</strong><span>Engineering leadership for the system and show</span></div>
+          <div class="proof"><strong>Field Proven</strong><span>Packages designed around real event conditions</span></div>
+          <div class="proof"><strong>Scalable</strong><span>Rent one system or build the full production</span></div>
         </div>
       </div>
     </section>
 
-    <section id="opportunities">
+    <section id="packages">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-kicker">Partnership opportunities</span>
-          <h2>Multiple ways to make the partnership visible and useful.</h2>
-          <p>Every package can be adjusted around the event, available inventory, campaign goals, and the type of value your brand wants to create.</p>
+          <span class="section-kicker">Rental and production packages</span>
+          <h2>Choose the level of support that fits your crew and event.</h2>
+          <p>Every package is quoted around the dates, location, system size, delivery needs, and equipment availability. The middle option includes an EIC to manage the technical build and help the system arrive show-ready.</p>
         </div>
 
-        <div class="grid-4">
-          <article class="opportunity-card">
-            <span class="card-num">01 / BROADCAST</span>
-            <h3>Broadcast Integration</h3>
-            <p>Place the brand naturally inside the live viewing experience.</p>
+        <div class="package-grid">
+          <article class="package-card">
+            <span class="package-label">Equipment only</span>
+            <span class="card-num">01 / DRY HIRE</span>
+            <h3>Gear Rental</h3>
+            <p>For experienced production teams that already have the crew and engineering plan but need dependable equipment.</p>
             <ul>
-              <li>Opening and closing billboards</li>
-              <li>Lower thirds and logo placements</li>
-              <li>Replay, segment, or feature sponsorship</li>
-              <li>Announcer acknowledgments</li>
-              <li>Branded graphics and transitions</li>
+              <li>Individual equipment or bundled systems</li>
+              <li>Camera, switching, audio, comms, fiber, networking, and power options</li>
+              <li>Bench-tested before release</li>
+              <li>Pickup, delivery, or shipping arranged by quote</li>
+              <li>Optional prep and system orientation</li>
             </ul>
+            <a class="btn btn-secondary" href="#contact">Request Rental Gear</a>
           </article>
 
-          <article class="opportunity-card">
-            <span class="card-num">02 / VENUE</span>
-            <h3>On-Site Visibility</h3>
-            <p>Connect the partnership to spectators and participants at the event.</p>
+          <article class="package-card featured">
+            <span class="package-label">Most flexible</span>
+            <span class="card-num">02 / ENGINEERED PACKAGE</span>
+            <h3>Show Build + EIC</h3>
+            <p>A complete technical package designed and prepared for your show, with an Engineer in Charge supporting the system.</p>
             <ul>
-              <li>Video-wall placements</li>
-              <li>Branded audience messaging</li>
-              <li>Interview or stage integration</li>
-              <li>Activation support</li>
-              <li>Product visibility where appropriate</li>
+              <li>System design and signal-flow planning</li>
+              <li>Prebuilt racks, labeling, patching, and testing</li>
+              <li>EIC for deployment, commissioning, and technical oversight</li>
+              <li>Documentation and crew handoff</li>
+              <li>Optional on-site support through strike</li>
             </ul>
+            <a class="btn btn-primary" href="#contact">Build My Show Package</a>
           </article>
 
-          <article class="opportunity-card">
-            <span class="card-num">03 / CONTENT</span>
-            <h3>Content & Social</h3>
-            <p>Extend the partnership beyond the live broadcast window.</p>
+          <article class="package-card">
+            <span class="package-label">Complete solution</span>
+            <span class="card-num">03 / TURNKEY</span>
+            <h3>Full Production</h3>
+            <p>For organizers who need the equipment, engineering, crew, and live execution managed as one production.</p>
             <ul>
-              <li>Branded highlight edits</li>
-              <li>Short-form social clips</li>
-              <li>Partner recap content</li>
-              <li>Behind-the-scenes integration</li>
-              <li>Campaign-ready event assets</li>
+              <li>Preproduction and site planning</li>
+              <li>Equipment, EIC, technical direction, and crew</li>
+              <li>Live switching, replay, graphics, audio, and commentary workflows</li>
+              <li>Field infrastructure and venue integration</li>
+              <li>Setup, operation, teardown, and deliverables</li>
             </ul>
+            <a class="btn btn-secondary" href="#contact">Plan a Turnkey Production</a>
           </article>
+        </div>
 
-          <article class="opportunity-card">
-            <span class="card-num">04 / SUPPORT</span>
-            <h3>Technical Partnerships</h3>
-            <p>Show how products and services help make difficult live productions possible.</p>
-            <ul>
-              <li>Equipment and infrastructure support</li>
-              <li>Technology-in-use storytelling</li>
-              <li>Field testing and demonstrations</li>
-              <li>Hospitality or travel support</li>
-              <li>Custom in-kind partnerships</li>
-            </ul>
-          </article>
+        <div class="note-panel">Final pricing and availability depend on the requested dates, equipment list, production scope, transportation, staffing, and site conditions. Equipment insurance, deposits, or a rental agreement may be required based on the package.</div>
+      </div>
+    </section>
+
+    <section class="feature-section" id="equipment">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-kicker">Equipment categories</span>
+          <h2>Build only the system you need—or connect the entire workflow.</h2>
+          <p>Packages can be configured as standalone rentals or engineered together as part of a larger show build.</p>
+        </div>
+
+        <div class="category-grid">
+          <article class="category-card"><div class="category-icon">01</div><h3>Camera Systems</h3><p>Broadcast, handheld, POV, support, monitoring, power, and operator-ready camera packages.</p></article>
+          <article class="category-card"><div class="category-icon">02</div><h3>Switching &amp; Control</h3><p>Production switchers, multiview monitoring, recording, routing, control computers, and rack systems.</p></article>
+          <article class="category-card"><div class="category-icon">03</div><h3>Replay &amp; Graphics</h3><p>Replay workflows, playback, graphics integration, sponsor loops, and show-control support.</p></article>
+          <article class="category-card"><div class="category-icon">04</div><h3>Audio &amp; Comms</h3><p>Mixing, announcer workflows, Dante systems, wired intercom, IFB, headsets, and program audio.</p></article>
+          <article class="category-card"><div class="category-icon">05</div><h3>Fiber &amp; Networking</h3><p>Field fiber, SDI transport, managed networking, media conversion, Dante infrastructure, and signal distribution.</p></article>
+          <article class="category-card"><div class="category-icon">06</div><h3>Power &amp; Connectivity</h3><p>Portable power, field charging, internet uplinks, networking support, and remote production infrastructure.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="feature-section">
+    <section>
       <div class="wrap feature-split">
         <div class="feature-image">
-          <img src="camera-operator.webp" alt="Broadcast camera operator filming live action on course" loading="lazy" />
+          <img src="event-video-wall.webp" alt="Live broadcast displayed to an on-site audience on a large video wall" loading="lazy" />
         </div>
         <div class="feature-copy">
-          <span class="section-kicker">Built around the event</span>
-          <h2>A partnership should support the experience—not interrupt it.</h2>
-          <p>We look for ways to make a sponsor useful to the production, meaningful to the audience, and easy for the brand to activate. That can include traditional media inventory, product integration, technical support, or a custom combination.</p>
+          <span class="section-kicker">Show builds</span>
+          <h2>A pile of equipment is not the same as a finished production system.</h2>
+          <p>The show-build service turns the selected equipment into a documented, tested workflow. We can prepare the system before load-in, support the deployment on site, and provide the EIC who owns the technical picture from first connection through final strike.</p>
 
           <div class="feature-list">
             <div class="feature">
               <div class="feature-icon">01</div>
-              <div><h3>Relevant placement</h3><p>Brand exposure is tied to moments, segments, and experiences that make sense.</p></div>
+              <div><h3>System design</h3><p>Define camera counts, formats, signal paths, control positions, recording, streaming, audio, comms, and redundancy.</p></div>
             </div>
             <div class="feature">
               <div class="feature-icon">02</div>
-              <div><h3>Flexible inventory</h3><p>Opportunities can span live coverage, venue screens, interviews, social content, and production support.</p></div>
+              <div><h3>Prewire and testing</h3><p>Build racks, label connections, configure devices, verify firmware, and test the workflow before it reaches the venue.</p></div>
             </div>
             <div class="feature">
               <div class="feature-icon">03</div>
-              <div><h3>Clear deliverables</h3><p>Each proposal can define the placements, content, event access, and follow-up assets included.</p></div>
+              <div><h3>EIC oversight</h3><p>Provide a clear technical lead responsible for commissioning, troubleshooting, crew handoff, and system stability.</p></div>
             </div>
             <div class="feature">
               <div class="feature-icon">04</div>
-              <div><h3>Room to grow</h3><p>Start with a single event or build toward a longer relationship across future productions.</p></div>
+              <div><h3>Documentation</h3><p>Create practical signal-flow notes, equipment assignments, deployment guidance, and strike expectations for the crew.</p></div>
             </div>
           </div>
         </div>
@@ -500,16 +560,16 @@
     <section id="process">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-kicker">How partnerships are built</span>
-          <h2>A straightforward path from conversation to activation.</h2>
-          <p>The goal is to match the right brand, event, audience, and inventory—then make the plan clear before production begins.</p>
+          <span class="section-kicker">How it works</span>
+          <h2>From equipment request to show-ready system.</h2>
+          <p>The sooner the production details are defined, the better the package can be matched to the event and the crew operating it.</p>
         </div>
 
         <div class="process-grid">
-          <article class="step"><strong>1</strong><h3>Discover</h3><p>Learn the brand goals, audience, timeline, budget, and type of partnership being considered.</p></article>
-          <article class="step"><strong>2</strong><h3>Match</h3><p>Identify the events, placements, content, and production needs that create the strongest fit.</p></article>
-          <article class="step"><strong>3</strong><h3>Build</h3><p>Create a defined package with deliverables, responsibilities, usage, and activation details.</p></article>
-          <article class="step"><strong>4</strong><h3>Deliver</h3><p>Execute the partnership and organize the agreed assets or recap materials after the event.</p></article>
+          <article class="step"><strong>1</strong><h3>Scope</h3><p>Share the dates, location, event type, camera count, formats, crew plan, and equipment already available.</p></article>
+          <article class="step"><strong>2</strong><h3>Configure</h3><p>Select the equipment, engineering support, transportation, and show-build services required.</p></article>
+          <article class="step"><strong>3</strong><h3>Prepare</h3><p>Bench-test, configure, label, document, and package the system for deployment.</p></article>
+          <article class="step"><strong>4</strong><h3>Deliver</h3><p>Release the rental, deploy the show package, or operate the complete production through strike.</p></article>
         </div>
       </div>
     </section>
@@ -518,24 +578,24 @@
       <div class="wrap">
         <div class="contact-shell">
           <div class="contact-copy">
-            <span class="section-kicker">Start a sponsor conversation</span>
-            <h2>Tell us what your brand wants to accomplish.</h2>
-            <p>Share the basics and we’ll use them to explore a practical partnership across an upcoming production, event series, or custom campaign.</p>
-            <div class="contact-points" aria-label="Sponsor inquiry next steps">
-              <div class="contact-point">We review your brand, audience, goals, and preferred timing.</div>
-              <div class="contact-point">We identify relevant events and available partnership inventory.</div>
-              <div class="contact-point">We follow up with questions or a tailored starting point.</div>
+            <span class="section-kicker">Rental and show-build request</span>
+            <h2>Tell us what the production needs.</h2>
+            <p>Provide the event details, equipment categories, and level of technical support. We’ll use that information to check availability and shape the right rental or show-build package.</p>
+            <div class="contact-points" aria-label="Rental inquiry next steps">
+              <div class="contact-point">We review the dates, location, equipment list, crew, and technical requirements.</div>
+              <div class="contact-point">We identify available equipment and the appropriate EIC or production support.</div>
+              <div class="contact-point">We follow up with questions, availability, and a project-specific quote.</div>
             </div>
           </div>
 
           <form class="sponsor-form" action="https://formsubmit.co/josh.cssr@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New Down The Wire Sponsorship Inquiry" />
+            <input type="hidden" name="_subject" value="New Down The Wire Rental or Show Build Inquiry" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://builtintempo.github.io/DownTheWireProductions/sponsors.html?submitted=true#contact" />
+            <input type="hidden" name="_next" value="https://builtintempo.github.io/DownTheWireProductions/rentals.html?submitted=true#contact" />
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
-            <p class="form-success" id="form-success" hidden>Thank you—your sponsorship inquiry was submitted successfully.</p>
+            <p class="form-success" id="form-success" hidden>Thank you—your rental or show-build request was submitted successfully.</p>
 
             <div class="form-grid">
               <div class="form-field">
@@ -543,8 +603,8 @@
                 <input id="contact-name" name="Contact Name" type="text" autocomplete="name" required />
               </div>
               <div class="form-field">
-                <label for="company">Company or brand <span class="required">*</span></label>
-                <input id="company" name="Company or Brand" type="text" autocomplete="organization" required />
+                <label for="company">Company or organization</label>
+                <input id="company" name="Company or Organization" type="text" autocomplete="organization" />
               </div>
               <div class="form-field">
                 <label for="email">Email <span class="required">*</span></label>
@@ -555,33 +615,77 @@
                 <input id="phone" name="Phone" type="tel" autocomplete="tel" />
               </div>
               <div class="form-field">
-                <label for="industry">Industry</label>
-                <input id="industry" name="Industry" type="text" placeholder="Example: outdoor, automotive, technology" />
+                <label for="event-name">Event or production name <span class="required">*</span></label>
+                <input id="event-name" name="Event or Production Name" type="text" required />
               </div>
               <div class="form-field">
-                <label for="timing">Preferred timing</label>
-                <input id="timing" name="Preferred Timing" type="text" placeholder="Example: next event, 2027 season, flexible" />
+                <label for="event-type">Production type</label>
+                <select id="event-type" name="Production Type">
+                  <option value="">Select a production type</option>
+                  <option>Mountain bike / action sports</option>
+                  <option>Motorsports / drift</option>
+                  <option>Traditional sports</option>
+                  <option>Festival / concert</option>
+                  <option>Corporate / brand activation</option>
+                  <option>Studio / webcast</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="start-date">Rental or event start</label>
+                <input id="start-date" name="Start Date" type="date" />
+              </div>
+              <div class="form-field">
+                <label for="end-date">Rental or event end</label>
+                <input id="end-date" name="End Date" type="date" />
+              </div>
+              <div class="form-field">
+                <label for="location">Location <span class="required">*</span></label>
+                <input id="location" name="Location" type="text" placeholder="City, state, and venue if known" required />
+              </div>
+              <div class="form-field">
+                <label for="package">Service level</label>
+                <select id="package" name="Requested Service Level">
+                  <option value="">Select a package</option>
+                  <option>Gear rental / equipment only</option>
+                  <option>Show build with EIC</option>
+                  <option>Full turnkey production</option>
+                  <option>Not sure yet</option>
+                </select>
               </div>
 
               <div class="form-field full">
-                <span class="form-legend">What type of partnership interests you?</span>
+                <span class="form-legend">What systems are needed?</span>
                 <div class="checkbox-grid">
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="Broadcast integration" /> Broadcast integration</label>
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="On-site visibility" /> On-site visibility</label>
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="Content and social" /> Content and social</label>
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="Product or equipment support" /> Product or equipment support</label>
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="Travel or hospitality support" /> Travel or hospitality support</label>
-                  <label class="check-option"><input type="checkbox" name="Partnership Interest[]" value="Custom partnership" /> Custom partnership</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Camera systems" /> Camera systems</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Switching and control" /> Switching and control</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Replay and graphics" /> Replay and graphics</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Audio and communications" /> Audio and communications</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Fiber and networking" /> Fiber and networking</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Power and internet" /> Power and internet</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="EIC or engineering support" /> EIC or engineering support</label>
+                  <label class="check-option"><input type="checkbox" name="Systems Needed[]" value="Production crew" /> Production crew</label>
                 </div>
               </div>
 
-              <div class="form-field full">
-                <label for="investment">Approximate partnership level</label>
-                <select id="investment" name="Approximate Partnership Level">
-                  <option value="">Select a range or type</option>
-                  <option>Product or in-kind support</option>
-                  <option>Under $5,000</option>
-                  <option>$5,000–$15,000</option>
+              <div class="form-field">
+                <label for="transport">Equipment handoff</label>
+                <select id="transport" name="Equipment Handoff">
+                  <option value="">Select an option</option>
+                  <option>Local pickup</option>
+                  <option>Delivery requested</option>
+                  <option>Shipping requested</option>
+                  <option>On-site deployment</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="budget">Approximate budget</label>
+                <select id="budget" name="Approximate Budget">
+                  <option value="">Select a range</option>
+                  <option>Under $2,500</option>
+                  <option>$2,500–$7,500</option>
+                  <option>$7,500–$15,000</option>
                   <option>$15,000–$30,000</option>
                   <option>$30,000+</option>
                   <option>Not sure yet</option>
@@ -589,14 +693,14 @@
               </div>
 
               <div class="form-field full">
-                <label for="goals">Partnership goals <span class="required">*</span></label>
-                <textarea id="goals" name="Partnership Goals" placeholder="Tell us what your brand wants to accomplish, the audience you want to reach, and any products, services, events, or campaign ideas involved." required></textarea>
+                <label for="details">Equipment and production details <span class="required">*</span></label>
+                <textarea id="details" name="Equipment and Production Details" placeholder="Include camera count, video format, inputs and outputs, streaming destination, audio, replay, graphics, comms, fiber distances, power, crew, equipment already owned, and any venue limitations." required></textarea>
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Send Sponsorship Inquiry</button>
-              <p class="form-note">Required fields are marked with an asterisk. Partnership availability varies by event.</p>
+              <button class="btn btn-primary" type="submit">Request Availability &amp; Quote</button>
+              <p class="form-note">Required fields are marked with an asterisk. Submitting this form does not reserve equipment.</p>
             </div>
           </form>
         </div>
@@ -612,9 +716,9 @@
       </div>
       <div class="footer-links">
         <a href="index.html">Home</a>
-        <a href="rentals.html">Rentals &amp; Show Builds</a>
-        <a href="#opportunities">Opportunities</a>
-        <a href="#contact">Sponsor Inquiry</a>
+        <a href="#packages">Packages</a>
+        <a href="#equipment">Equipment</a>
+        <a href="sponsors.html">Sponsors</a>
         <a href="mailto:josh.cssr@gmail.com">josh.cssr@gmail.com</a>
       </div>
     </div>
