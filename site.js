@@ -63,7 +63,6 @@
 
   const params=new URLSearchParams(location.search); if(params.get('submitted')==='1'){ const target=location.hash?document.querySelector(location.hash):null; const message=target?target.querySelector('.success-message'):document.querySelector('.success-message'); if(message){message.classList.add('is-visible');message.tabIndex=-1;message.focus();} if(history.replaceState)history.replaceState({},document.title,location.pathname+location.hash); }
 
-  // HC-X2 gallery repair: temporarily use only verified full-resolution product files.
   if (location.pathname.endsWith('rent-panasonic-hcx2.html')) {
     const thumbs = document.getElementById('gallery-thumbs');
     const main = document.getElementById('gallery-main');
@@ -71,10 +70,10 @@
     const modalImage = document.getElementById('gallery-modal-image');
     if (thumbs && main) {
       const verified = [
-        {src:'panasonic-hcx2-gallery-06.jpg?v=20261009-9', alt:'Panasonic HC-X2 side profile'},
-        {src:'panasonic-hcx2-gallery-07.jpg?v=20261009-9', alt:'Panasonic HC-X2 front three-quarter view'},
-        {src:'panasonic-hcx2-gallery-08.jpg?v=20261009-9', alt:'Panasonic HC-X2 camera view'},
-        {src:'panasonic-hcx2-gallery-05.jpg?v=20261009-9', alt:'Panasonic HC-X2 SDI, timecode and power connections'}
+        {src:'panasonic-hcx2-gallery-08.jpg?v=20261009-10', alt:'Panasonic HC-X2 control-side view'},
+        {src:'panasonic-hcx2-gallery-06.jpg?v=20261009-10', alt:'Panasonic HC-X2 opposite side profile'},
+        {src:'panasonic-hcx2-gallery-07.jpg?v=20261009-10', alt:'Panasonic HC-X2 front three-quarter view'},
+        {src:'panasonic-hcx2-gallery-05.jpg?v=20261009-10', alt:'Panasonic HC-X2 SDI, timecode and power connections'}
       ];
       let galleryIndex = 0;
       const render = i => {
@@ -96,7 +95,6 @@
       if(next){const clone=next.cloneNode(true);next.replaceWith(clone);clone.addEventListener('click',()=>render(galleryIndex+1));}
       main.onerror = () => { if (galleryIndex !== 1) render(1); };
 
-      // Force the enlarged viewer to use the currently visible image and an explicit viewport size.
       if (modal && modalImage) {
         const modalFix = document.createElement('style');
         modalFix.textContent = `
