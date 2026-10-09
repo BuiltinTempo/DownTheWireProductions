@@ -71,10 +71,10 @@
     const modalImage = document.getElementById('gallery-modal-image');
     if (thumbs && main) {
       const verified = [
-        {src:'panasonic-hcx2-gallery-06.jpg?v=20261009-8', alt:'Panasonic HC-X2 side profile'},
-        {src:'panasonic-hcx2-gallery-07.jpg?v=20261009-8', alt:'Panasonic HC-X2 front three-quarter view'},
-        {src:'panasonic-hcx2-gallery-08.jpg?v=20261009-8', alt:'Panasonic HC-X2 camera view'},
-        {src:'panasonic-hcx2-gallery-05.jpg?v=20261009-8', alt:'Panasonic HC-X2 SDI, timecode and power connections'}
+        {src:'panasonic-hcx2-gallery-06.jpg?v=20261009-9', alt:'Panasonic HC-X2 side profile'},
+        {src:'panasonic-hcx2-gallery-07.jpg?v=20261009-9', alt:'Panasonic HC-X2 front three-quarter view'},
+        {src:'panasonic-hcx2-gallery-08.jpg?v=20261009-9', alt:'Panasonic HC-X2 camera view'},
+        {src:'panasonic-hcx2-gallery-05.jpg?v=20261009-9', alt:'Panasonic HC-X2 SDI, timecode and power connections'}
       ];
       let galleryIndex = 0;
       const render = i => {
@@ -95,6 +95,24 @@
       if(prev){const clone=prev.cloneNode(true);prev.replaceWith(clone);clone.addEventListener('click',()=>render(galleryIndex-1));}
       if(next){const clone=next.cloneNode(true);next.replaceWith(clone);clone.addEventListener('click',()=>render(galleryIndex+1));}
       main.onerror = () => { if (galleryIndex !== 1) render(1); };
+
+      // Force the enlarged viewer to use the currently visible image and an explicit viewport size.
+      if (modal && modalImage) {
+        const modalFix = document.createElement('style');
+        modalFix.textContent = `
+          #gallery-modal.open{display:flex!important;align-items:center!important;justify-content:center!important}
+          #gallery-modal-image{display:block!important;width:auto!important;height:auto!important;max-width:calc(100vw - 150px)!important;max-height:calc(100vh - 80px)!important;object-fit:contain!important;position:relative!important;z-index:2!important;opacity:1!important;visibility:visible!important}
+          @media(max-width:700px){#gallery-modal-image{max-width:calc(100vw - 40px)!important;max-height:calc(100vh - 90px)!important}}
+        `;
+        document.head.appendChild(modalFix);
+        main.addEventListener('click', () => {
+          modalImage.src = main.currentSrc || main.src;
+          modalImage.alt = main.alt;
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden','false');
+          document.body.style.overflow='hidden';
+        }, true);
+      }
     }
   }
 })();
