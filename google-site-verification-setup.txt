@@ -1,0 +1,8 @@
+Down The Wire Productions — Google Search Console setup note
+
+The site is ready for Google Search Console verification and sitemap submission.
+
+Property to add: https://downthewire.live/
+Sitemap: https://downthewire.live/sitemap.xml
+
+This file is an internal repository note only; it is NOT a Google verification token. Once Google Search Console provides the verification token/file, replace this note with the exact Google-provided verification method or add the exact verification file at the repository root.
