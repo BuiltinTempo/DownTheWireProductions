@@ -53,7 +53,22 @@ form.addEventListener('submit',async(e)=>{
     const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const data=await r.json();if(!r.ok)throw new Error(data.error||'Unable to process request');
     statusBox.className='capture-status show good';
-    statusBox.innerHTML='<strong>Signup complete — your private checklist link is ready.</strong><br><span>This link expires in 7 days.</span><br><a class="btn btn-link arrow" href="'+data.download_url+'">Download the DTW Broadcast Planning Checklist</a>';
+    // Never interpolate an API response into innerHTML or an unvalidated link.
+    const downloadUrl = new URL(String(data.download_url || ''));
+    if (downloadUrl.origin !== 'https://xefzruxeqmwxotorxmmh.supabase.co' ||
+        downloadUrl.pathname !== '/functions/v1/dtw-checklist-download' ||
+        !/^[0-9a-fA-F-]{36}$/.test(downloadUrl.searchParams.get('token') || '')) {
+      throw new Error('Invalid checklist download URL');
+    }
+    const heading = document.createElement('strong');
+    heading.textContent = 'Signup complete — your private checklist link is ready.';
+    const expiry = document.createElement('span');
+    expiry.textContent = 'This link expires in 7 days.';
+    const downloadLink = document.createElement('a');
+    downloadLink.className = 'btn btn-link arrow';
+    downloadLink.href = downloadUrl.href;
+    downloadLink.textContent = 'Download the DTW Broadcast Planning Checklist';
+    statusBox.replaceChildren(heading, document.createElement('br'), expiry, document.createElement('br'), downloadLink);
     form.reset();
   }catch(err){
     statusBox.className='capture-status show bad';statusBox.textContent='We could not create your checklist link right now. Please email info@downthewire.productions and we will help.';
