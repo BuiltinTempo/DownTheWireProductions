@@ -1,0 +1,76 @@
+name: DTW security smoke check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 14 * * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/security-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      DTW_SITE: https://downthewire.live
+      CALENDAR_API: https://mnzegijkceapujodqsar.supabase.co/functions/v1/contest-api
+      DTW_LEAD_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-lead-capture
+    steps:
+      - name: Check website deployment and public DNS
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --connect-timeout 10 --max-time 30 "$DTW_SITE/" -o /tmp/dtw-homepage.html
+          grep -qi '<meta http-equiv="Content-Security-Policy"' /tmp/dtw-homepage.html
+          grep -q 'dtw-form-intake' /tmp/dtw-homepage.html
+          echo "PASS: production homepage serves the current secure form and CSP metadata"
+          echo "Authoritative DNS name servers:"
+          dig +short NS downthewire.live | sort
+          echo "Business-domain DMARC:"
+          dig +short TXT _dmarc.downthewire.productions | grep -i 'v=DMARC1'
+          echo "Public HTTP response headers (informational; not proof of full hardening):"
+          curl -sSIL --connect-timeout 10 --max-time 30 "$DTW_SITE/" |
+            grep -iE '^(HTTP/|strict-transport-security:|content-security-policy:|x-frame-options:|x-content-type-options:|referrer-policy:)' || true
+      - name: Check public calendar read API without casting a vote
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /tmp/calendar-state.json -w '%{http_code}' \
+            -H 'Origin: https://downthewire.live' -H 'Content-Type: application/json' \
+            -d '{"fn":"get_public_state","args":{}}' "$CALENDAR_API")"
+          if [ "$status" != 200 ]; then
+            echo "FAIL: calendar public state endpoint returned HTTP $status"
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          state = json.load(open("/tmp/calendar-state.json"))
+          assert isinstance(state, dict), "Public API must return an object"
+          assert isinstance(state.get("photos"), list), "Missing public photos"
+          assert isinstance(state.get("rounds"), list), "Missing public rounds"
+          assert isinstance(state.get("contest"), dict), "Missing public contest state"
+          print("PASS: public calendar API returns expected state structure; no votes created")
+          PY
+          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /tmp/calendar-badid.json -w '%{http_code}' \
+            -H 'Origin: https://downthewire.live' -H 'Content-Type: application/json' \
+            -d '{"fn":"get_public_voter_state","args":{"p_voter_id":"judge:invalid"}}' "$CALENDAR_API")"
+          if [ "$status" != 400 ]; then
+            echo "FAIL: malformed voter ID expected 400 but returned $status"
+            exit 1
+          fi
+          echo "PASS: malformed or reserved voter ID rejected"
+      - name: Check DTW public lead endpoint rejects unsafe methods
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /dev/null -w '%{http_code}' "$DTW_LEAD_API")"
+          if [ "$status" != 405 ]; then
+            echo "FAIL: lead endpoint expected 405 for GET but returned $status"
+            exit 1
+          fi
+          echo "PASS: lead endpoint rejects GET without creating data"
