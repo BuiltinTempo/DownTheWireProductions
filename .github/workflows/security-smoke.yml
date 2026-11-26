@@ -89,6 +89,11 @@ jobs:
           echo "Public HTTP response headers (informational; not proof of full hardening):"
           curl -sSIL --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 "$DTW_SITE/" |
             grep -iE '^(HTTP/|strict-transport-security:|content-security-policy:|x-frame-options:|x-content-type-options:|referrer-policy:)' || true
+      - name: Monitor DNS delegation and website TLS renewal
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check-public-transport.py
       - name: Check public calendar read API without casting a vote
         shell: bash
         run: |
