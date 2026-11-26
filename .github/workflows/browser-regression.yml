@@ -1,0 +1,56 @@
+name: DTW read-only browser regression
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 15 * * 1"
+  pull_request:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "*.js"
+      - "*.css"
+      - "scripts/browser_regression.py"
+      - ".github/workflows/browser-regression.yml"
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "*.js"
+      - "*.css"
+      - "scripts/browser_regression.py"
+      - ".github/workflows/browser-regression.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  browser-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out website code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install isolated Chromium test tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv /tmp/dtw-browser-tests
+          /tmp/dtw-browser-tests/bin/pip install --disable-pip-version-check "playwright==1.65.1"
+          /tmp/dtw-browser-tests/bin/python -m playwright install --with-deps chromium
+      - name: Start local read-only website server
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/dtw-static.log 2>&1 &
+          for i in $(seq 1 25); do
+            if curl -fsS http://127.0.0.1:8765/ -o /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/dtw-static.log
+          exit 1
+      - name: Check browser flows without submitting data
+        run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url http://127.0.0.1:8765
+      - name: Check production browser flows on scheduled or manual runs
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url https://downthewire.live
