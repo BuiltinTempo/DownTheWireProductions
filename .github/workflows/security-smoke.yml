@@ -59,6 +59,7 @@ jobs:
           set -euo pipefail
           node --check site.js
           node --check motion.js
+          node scripts/verify-inline-csp.mjs
           if grep -Eq 'querySelector[[:space:]]*\([[:space:]]*(window\.)?location\.hash' site.js; then
             echo "FAIL: URL fragment passed directly into a CSS selector"
             exit 1
