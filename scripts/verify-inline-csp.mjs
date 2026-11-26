@@ -33,7 +33,7 @@ for (const page of pages) {
   }
   // Prevent accidental third-party images or embedded frames from silently
   // requiring a weaker policy.
-  if (/<iframe\\b/i.test(html) || /<(?:img|source|video|audio)\\b[^>]*\\bsrc(?:set)?\\s*=\\s*["']https?:\\/\\//i.test(html)) {
+  if (/<iframe\b/i.test(html) || /<(?:img|source|video|audio)\b[^>]*\bsrc(?:set)?\s*=\s*["']https?:\/\//i.test(html)) {
     throw new Error(page + ': new external image/embed requires security review');
   }
   if (!directives.includes("script-src-attr 'none'")) {
