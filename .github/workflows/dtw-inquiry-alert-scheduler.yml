@@ -1,0 +1,78 @@
+name: DTW internal inquiry alert scheduler
+
+# No customer email, no checkout, no shared database HTTP queue.
+# Activate only after environment protection, secret provisioning and inbox QA.
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Validate configuration without invoking the mail worker"
+        required: true
+        default: true
+        type: boolean
+
+permissions: {}
+
+concurrency:
+  group: dtw-inquiry-alert-scheduler
+  cancel-in-progress: false
+
+jobs:
+  dry-run:
+    if: github.event_name == 'workflow_dispatch' && inputs.dry_run == true && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Validate dry-run path
+        run: echo "Dry run; no network request or email attempted."
+
+  notify:
+    if: github.ref == 'refs/heads/main' && vars.DTW_INQUIRY_ALERT_SCHEDULER_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run == false))
+    environment: dtw-inquiry-alerts
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Invoke protected DTW worker once
+        env:
+          DTW_ALERT_TOKEN: ${{ secrets.DTW_INQUIRY_ALERT_WORKER_SECRET }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          token = os.environ.get("DTW_ALERT_TOKEN", "")
+          if len(token) < 32:
+              sys.exit("Scheduler credential missing or too short.")
+          url = "https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-inquiry-alert-worker"
+          request = urllib.request.Request(
+              url, data=b"{}", method="POST",
+              headers={"Content-Type": "application/json", "X-DTW-Alert-Secret": token},
+          )
+          opener = urllib.request.build_opener(NoRedirect())
+          try:
+              with opener.open(request, timeout=35) as response:
+                  if response.status != 200:
+                      sys.exit("Worker returned unexpected status.")
+                  data = json.loads(response.read(2048))
+          except urllib.error.HTTPError as exc:
+              sys.exit(f"Worker HTTP status {exc.code}; inspect restricted worker logs.")
+          except (urllib.error.URLError, TimeoutError, ValueError):
+              sys.exit("Worker transport or response failure; no immediate resend.")
+          state = data.get("state") if isinstance(data, dict) else None
+          if state not in {"empty", "accepted", "retry", "failed"} or data.get("ok") is not True:
+              sys.exit("Unexpected worker result; inspect restricted worker logs.")
+          print("Worker result:", state)
+          if state in {"retry", "failed"}:
+              sys.exit("Alert requires retry or manual review; queue state retained.")
+          PY
