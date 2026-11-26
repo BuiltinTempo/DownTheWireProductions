@@ -58,6 +58,21 @@ jobs:
             exit 1
           fi
           echo "PASS: baseline browser policy exists across $checked public HTML pages"
+      - name: Validate local JavaScript and safe URL fragment handling
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check motion.js
+          if grep -Eq 'querySelector[[:space:]]*\([[:space:]]*(window\.)?location\.hash' site.js; then
+            echo "FAIL: URL fragment passed directly into a CSS selector"
+            exit 1
+          fi
+          for page in rent-panasonic-hcx2.html rent-ursa-broadcast-g2.html; do
+            grep -q 'name="_captcha" value="true"' "$page"
+            grep -q 'name="_honey"' "$page"
+          done
+          echo "PASS: JavaScript parses, fragment lookup is constrained, rental anti-spam markers preserved"
       - name: Check website deployment and public DNS
         shell: bash
         run: |

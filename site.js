@@ -61,7 +61,33 @@
   if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.13}); reveal.forEach(el=>observer.observe(el)); } else reveal.forEach(el=>el.classList.add('visible'));
   document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 
-  const params=new URLSearchParams(location.search); if(params.get('submitted')==='1'){ const target=location.hash?document.querySelector(location.hash):null; const message=target?target.querySelector('.success-message'):document.querySelector('.success-message'); if(message){message.classList.add('is-visible');message.tabIndex=-1;message.focus();} if(history.replaceState)history.replaceState({},document.title,location.pathname+location.hash); }
+  const params = new URLSearchParams(location.search);
+  if (params.get('submitted') === '1') {
+    // URL fragments are untrusted input. Don't interpret them as CSS selectors.
+    // Form anchors on this site use simple element IDs.
+    let target = null;
+    if (location.hash.length > 1) {
+      try {
+        const fragmentId = decodeURIComponent(location.hash.slice(1));
+        if (/^[A-Za-z][A-Za-z0-9_-]{0,63}$/.test(fragmentId)) {
+          target = document.getElementById(fragmentId);
+        }
+      } catch (_) {
+        // Malformed percent escapes must not interrupt site navigation.
+      }
+    }
+    const message = target
+      ? target.querySelector('.success-message')
+      : document.querySelector('.success-message');
+    if (message) {
+      message.classList.add('is-visible');
+      message.tabIndex = -1;
+      message.focus();
+    }
+    if (history.replaceState) {
+      history.replaceState({}, document.title, location.pathname + location.hash);
+    }
+  }
 
   if (location.pathname.endsWith('rent-panasonic-hcx2.html')) {
     const thumbs = document.getElementById('gallery-thumbs');
