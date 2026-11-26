@@ -15,17 +15,20 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 10
     env:
       DTW_SITE: https://downthewire.live
       CALENDAR_API: https://mnzegijkceapujodqsar.supabase.co/functions/v1/contest-api
       DTW_LEAD_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-lead-capture
+      DTW_FIELD_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-field-notes-signup
+      DTW_INTAKE_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-form-intake
+      DTW_CHECKLIST_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-checklist-download
     steps:
       - name: Check website deployment and public DNS
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL --connect-timeout 10 --max-time 30 "$DTW_SITE/" -o /tmp/dtw-homepage.html
+          curl -fsSL --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 "$DTW_SITE/" -o /tmp/dtw-homepage.html
           grep -qi '<meta http-equiv="Content-Security-Policy"' /tmp/dtw-homepage.html
           grep -q 'dtw-form-intake' /tmp/dtw-homepage.html
           echo "PASS: production homepage serves the current secure form and CSP metadata"
@@ -34,13 +37,13 @@ jobs:
           echo "Business-domain DMARC:"
           dig +short TXT _dmarc.downthewire.productions | grep -i 'v=DMARC1'
           echo "Public HTTP response headers (informational; not proof of full hardening):"
-          curl -sSIL --connect-timeout 10 --max-time 30 "$DTW_SITE/" |
+          curl -sSIL --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 "$DTW_SITE/" |
             grep -iE '^(HTTP/|strict-transport-security:|content-security-policy:|x-frame-options:|x-content-type-options:|referrer-policy:)' || true
       - name: Check public calendar read API without casting a vote
         shell: bash
         run: |
           set -euo pipefail
-          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /tmp/calendar-state.json -w '%{http_code}' \
+          status="$(curl -sS --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 -o /tmp/calendar-state.json -w '%{http_code}' \
             -H 'Origin: https://downthewire.live' -H 'Content-Type: application/json' \
             -d '{"fn":"get_public_state","args":{}}' "$CALENDAR_API")"
           if [ "$status" != 200 ]; then
@@ -56,7 +59,7 @@ jobs:
           assert isinstance(state.get("contest"), dict), "Missing public contest state"
           print("PASS: public calendar API returns expected state structure; no votes created")
           PY
-          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /tmp/calendar-badid.json -w '%{http_code}' \
+          status="$(curl -sS --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 -o /tmp/calendar-badid.json -w '%{http_code}' \
             -H 'Origin: https://downthewire.live' -H 'Content-Type: application/json' \
             -d '{"fn":"get_public_voter_state","args":{"p_voter_id":"judge:invalid"}}' "$CALENDAR_API")"
           if [ "$status" != 400 ]; then
@@ -64,13 +67,26 @@ jobs:
             exit 1
           fi
           echo "PASS: malformed or reserved voter ID rejected"
-      - name: Check DTW public lead endpoint rejects unsafe methods
+      - name: Verify DTW public API method and token boundaries without creating records
         shell: bash
         run: |
           set -euo pipefail
-          status="$(curl -sS --connect-timeout 10 --max-time 30 -o /dev/null -w '%{http_code}' "$DTW_LEAD_API")"
-          if [ "$status" != 405 ]; then
-            echo "FAIL: lead endpoint expected 405 for GET but returned $status"
-            exit 1
-          fi
-          echo "PASS: lead endpoint rejects GET without creating data"
+          check_get() {
+            local label="$1" url="$2" expected="$3" status
+            # curl retries transient connection/timeouts and retryable 5xx only.
+            # 405/403 are the expected terminal responses, not treated as failures by curl.
+            if ! status="$(curl -sS --retry 2 --retry-delay 2 --retry-connrefused \
+              --connect-timeout 10 --max-time 25 -o /dev/null -w '%{http_code}' "$url")"; then
+              echo "FAIL: $label unreachable after transient-failure retries"
+              return 1
+            fi
+            if [ "$status" != "$expected" ]; then
+              echo "FAIL: $label expected HTTP $expected, got HTTP $status"
+              return 1
+            fi
+            echo "PASS: $label returned expected HTTP $expected without inserting data"
+          }
+          check_get "lead capture GET" "$DTW_LEAD_API" 405
+          check_get "Field Notes GET" "$DTW_FIELD_API" 405
+          check_get "project/rental intake GET" "$DTW_INTAKE_API" 405
+          check_get "checklist download without token" "$DTW_CHECKLIST_API" 403
