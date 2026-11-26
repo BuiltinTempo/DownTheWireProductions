@@ -2,8 +2,10 @@ name: DTW read-only browser regression
 
 on:
   workflow_dispatch:
+  # Daily production regression is a fallback if GitHub Pages workflow_run
+  # notifications do not arrive for Pages' built-in deployment workflow.
   schedule:
-    - cron: "23 15 * * 1"
+    - cron: "23 15 * * *"
   # Run every PR so a future required browser check cannot be skipped.
   pull_request:
     branches: [main]
