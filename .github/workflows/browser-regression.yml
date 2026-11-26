@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "23 15 * * 1"
+  # Run every PR so a future required browser check cannot be skipped.
   pull_request:
     branches: [main]
-    paths:
-      - "*.html"
-      - "*.js"
-      - "*.css"
-      - "scripts/browser_regression.py"
-      - ".github/workflows/browser-regression.yml"
+  # The live browser run must wait until the GitHub Pages deployment succeeds.
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     paths:
@@ -26,6 +26,8 @@ permissions:
 
 jobs:
   browser-regression:
+    # Failed Pages deployments should not trigger a live-site check.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -39,6 +41,7 @@ jobs:
           /tmp/dtw-browser-tests/bin/pip install --disable-pip-version-check "playwright==1.65.1"
           /tmp/dtw-browser-tests/bin/python -m playwright install --with-deps chromium
       - name: Start local read-only website server
+        if: github.event_name != 'workflow_run'
         shell: bash
         run: |
           set -euo pipefail
@@ -50,7 +53,8 @@ jobs:
           cat /tmp/dtw-static.log
           exit 1
       - name: Check browser flows without submitting data
+        if: github.event_name != 'workflow_run'
         run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url http://127.0.0.1:8765
-      - name: Check production browser flows on scheduled or manual runs
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      - name: Check live production browser flows after a successful Pages deployment
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
         run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url https://downthewire.live
