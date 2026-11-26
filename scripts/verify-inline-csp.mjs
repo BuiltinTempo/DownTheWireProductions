@@ -16,6 +16,26 @@ for (const page of pages) {
   if (!script.includes("'self'") || script.includes("'unsafe-inline'")) {
     throw new Error(page + ': unsafe script-src configuration');
   }
+  // Browser-level egress restrictions are deliberately specific to DTW's
+  // current static asset and form architecture. Any integration addition
+  // requires an explicit, reviewed update to this allowlist.
+  const requiredResourceRules = [
+    "connect-src 'self' https://xefzruxeqmwxotorxmmh.supabase.co",
+    "img-src 'self' data:",
+    "frame-src 'none'",
+    "worker-src 'none'",
+    "media-src 'self'"
+  ];
+  for (const rule of requiredResourceRules) {
+    if (!directives.includes(rule)) {
+      throw new Error(page + ': missing or unexpected resource policy: ' + rule);
+    }
+  }
+  // Prevent accidental third-party images or embedded frames from silently
+  // requiring a weaker policy.
+  if (/<iframe\\b/i.test(html) || /<(?:img|source|video|audio)\\b[^>]*\\bsrc(?:set)?\\s*=\\s*["']https?:\\/\\//i.test(html)) {
+    throw new Error(page + ': new external image/embed requires security review');
+  }
   if (!directives.includes("script-src-attr 'none'")) {
     throw new Error(page + ': inline event handlers not disabled');
   }
