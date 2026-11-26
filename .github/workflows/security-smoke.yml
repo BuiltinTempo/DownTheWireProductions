@@ -4,11 +4,20 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "17 14 * * *"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/security-smoke.yml"
+      - "*.html"
+      - "*.js"
+      - "*.css"
   push:
     branches: [main]
     paths:
       - ".github/workflows/security-smoke.yml"
       - "*.html"
+      - "*.js"
+      - "*.css"
 
 permissions:
   contents: read
