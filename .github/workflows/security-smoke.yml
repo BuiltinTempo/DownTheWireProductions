@@ -30,7 +30,7 @@ jobs:
       DTW_CHECKLIST_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-checklist-download
     steps:
       - name: Check security policy across all public HTML source pages
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Verify browser security policy is present in every public HTML page
         shell: bash
         run: |
