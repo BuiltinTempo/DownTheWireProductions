@@ -9,10 +9,6 @@ on:
       - ".github/workflows/codeql.yml"
   pull_request:
     branches: [main]
-    paths:
-      - "*.js"
-      - "*.html"
-      - ".github/workflows/codeql.yml"
   schedule:
     - cron: "41 13 * * 1"
   workflow_dispatch:
