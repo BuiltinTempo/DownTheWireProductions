@@ -58,5 +58,5 @@ jobs:
         if: github.event_name != 'workflow_run'
         run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url http://127.0.0.1:8765
       - name: Check live production browser flows after a successful Pages deployment
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' || github.event_name == 'pull_request'
         run: /tmp/dtw-browser-tests/bin/python scripts/browser_regression.py --base-url https://downthewire.live
