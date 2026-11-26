@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/security-smoke.yml"
+      - "*.html"
 
 permissions:
   contents: read
@@ -24,6 +25,30 @@ jobs:
       DTW_INTAKE_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-form-intake
       DTW_CHECKLIST_API: https://xefzruxeqmwxotorxmmh.supabase.co/functions/v1/dtw-checklist-download
     steps:
+      - name: Check security policy across all public HTML source pages
+        uses: actions/checkout@v4
+      - name: Verify browser security policy is present in every public HTML page
+        shell: bash
+        run: |
+          set -euo pipefail
+          checked=0
+          for page in ./*.html; do
+            case "$page" in ./google*.html) continue ;; esac
+            if ! grep -Eqi 'http-equiv="Content-Security-Policy"' "$page"; then
+              echo "FAIL: missing CSP on $page"
+              exit 1
+            fi
+            if ! grep -Eqi 'name="referrer"' "$page"; then
+              echo "FAIL: missing referrer policy on $page"
+              exit 1
+            fi
+            checked=$((checked + 1))
+          done
+          if [ "$checked" -lt 25 ]; then
+            echo "FAIL: expected at least 25 protected public pages; found $checked"
+            exit 1
+          fi
+          echo "PASS: baseline browser policy exists across $checked public HTML pages"
       - name: Check website deployment and public DNS
         shell: bash
         run: |
@@ -32,6 +57,11 @@ jobs:
           grep -qi '<meta http-equiv="Content-Security-Policy"' /tmp/dtw-homepage.html
           grep -q 'dtw-form-intake' /tmp/dtw-homepage.html
           echo "PASS: production homepage serves the current secure form and CSP metadata"
+          for page in about.html resources.html rent-panasonic-hcx2.html; do
+            curl -fsSL --retry 2 --retry-delay 2 --retry-connrefused --connect-timeout 10 --max-time 25 "$DTW_SITE/$page" -o "/tmp/dtw-$page"
+            grep -qi 'http-equiv="Content-Security-Policy"' "/tmp/dtw-$page"
+          done
+          echo "PASS: public service, resource, and rental pages serve browser policy"
           echo "Authoritative DNS name servers:"
           dig +short NS downthewire.live | sort
           echo "Business-domain DMARC:"
