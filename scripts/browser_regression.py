@@ -65,7 +65,8 @@ def main(base_url):
                 "Shared site.js updates the footer year")
         home.close()
 
-        mobile = context.new_page(viewport={"width": 390, "height": 844})
+        mobile = context.new_page()
+        mobile.set_viewport_size({"width": 390, "height": 844})
         mobile.goto(urljoin(base_url.rstrip("/") + "/", "index.html"),
                     wait_until="domcontentloaded", timeout=35000)
         mobile.locator(".menu-toggle").click()
